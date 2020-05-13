@@ -1,0 +1,85 @@
+import {lobbyData} from "./lobby";
+import logError from "../../utils/consoleLogs/logError";
+import {userPublicData, userUniqueData} from "../user/user";
+import logInfo from "../../utils/consoleLogs/logInfo";
+import wrappedPrisma from "../wrappedPrisma";
+
+export default class DB_Lobbies {
+   public static async GetLobbyData(lobbyId: string): Promise<lobbyData | undefined> {
+      const res = await wrappedPrisma.lobby({id: lobbyId});
+      if (!res?.id) logError(res);
+      if (!res?.id) return undefined;
+
+      return {
+         name: res.name,
+         id: res.id
+      }
+   }
+
+   public static async CreateNewLobby(lobby: {
+      id?: string,
+      name: string
+   }): Promise<lobbyData> {
+      const res = await wrappedPrisma.createLobby({
+         id: lobby.id,
+         name: lobby.name
+      });
+
+      if (!res.id) logError(res);
+      logInfo(`New lobby: ${res.id}, ${res.name}`);
+
+      return {
+         id: res.id,
+         name: res.name
+      }
+   }
+
+   public static async DeleteLobby(lobbyId: string): Promise<void> {
+      const res = await wrappedPrisma.deleteLobby({id: lobbyId});
+      if (!res.id) logError(res);
+   }
+
+   public static async IsLobbyExists(lobbyId: string): Promise<boolean> {
+      return !!(await wrappedPrisma.lobby({id: lobbyId}));
+   }
+
+   public static async GetUsersIdInLobby(lobbyId: string): Promise<Array<string>> {
+      return (await wrappedPrisma.users({
+         where: {
+            lobby: await wrappedPrisma.lobby({
+               id: lobbyId
+            })
+         }
+      })).map((u: userPublicData) => u.id);
+   }
+
+   public static async IsUserInLobby(lobbyId: string, userUniqueData: userUniqueData): Promise<boolean> {
+      return (await wrappedPrisma.lobbies({where: {usersInLobby_some: userUniqueData}})).length > 0;
+   }
+
+   public static async ConnectUserToLobby(lobbyId: string, user: userUniqueData): Promise<void> {
+      await wrappedPrisma.updateLobby({
+         data: {
+            usersInLobby: {
+               connect: user
+            }
+         },
+         where: {
+            id: lobbyId
+         }
+      });
+   }
+
+   public static async DisconnectUserFromLobby(lobbyId: string, user: userUniqueData): Promise<void> {
+      await wrappedPrisma.updateLobby({
+         data: {
+            usersInLobby: {
+               disconnect: user
+            }
+         },
+         where: {
+            id: lobbyId
+         }
+      });
+   }
+}

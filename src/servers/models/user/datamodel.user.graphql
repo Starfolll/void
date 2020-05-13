@@ -1,0 +1,28 @@
+type User {
+    id: ID! @id
+    token: String!
+
+    isVerified: Boolean! @default(value: false)
+    verificationLink: String
+
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+
+    table: Table @relation(name: "UsersInGame")
+    lobby: Lobby @relation(name: "UsersInLobbyRelation")
+
+    name: String! @unique
+    email: String! @unique
+    password: String!
+
+    publicName: String!
+    avatarUrlHash: String
+    changPasswordHash: String
+
+    friends: [User!]! @relation(name: "UsersFriends")
+    friendInvites: [User!]! @relation(name: "UsersFriendInvites")
+
+    lvl: Int!
+    xp: Float!
+    gold: Float!
+}

@@ -1,0 +1,51 @@
+/dist
+/.idea
+/generated
+/node_modules
+
+.env
+.tsbuildinfo
+package-lock.json
+
+# CONF
+###################
+
+# DB
+###################
+
+# ENV
+###################
+/conf/*.env
+
+# LOG
+###################
+/log/debug/
+/log/errors/
+
+# MEDIA
+###################
+    /media/
+
+# SRC
+###################
+/src/**/*.js
+/src/**/*.d.ts
+
+# WEB
+/src/web/.idea
+/src/web/dist
+/src/web/node_modules
+/src/web/package-lock.json
+
+# ELECTRON
+/src/electron/.idea
+/src/electron/dist
+/src/electron/node_modules
+/src/electron/package-lock.json
+
+# TEST
+###################
+
+# TMP
+###################
+/tmp/
