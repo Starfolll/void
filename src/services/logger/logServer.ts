@@ -16,14 +16,7 @@ const bodyValidationSchema = Joi.object({data: Joi.string().required()});
 
 const main = async () => {
    app.use(express.json());
-
-   app.get("/", async (req, res) => res.send(logServe.GetLogsBundle(["ALL"]).ToHtml()));
-   app.get("/info", async (req, res) => res.send(logServe.logsList.INFO.ToHtml()));
-   app.get("/debug", async (req, res) => res.send(logServe.logsList.DEBUG.ToHtml()));
-   app.get("/error", async (req, res) => res.send(logServe.logsList.ERROR.ToHtml()));
-   app.get("/fatal", async (req, res) => res.send(logServe.logsList.FATAL.ToHtml()));
-   app.get("/trace", async (req, res) => res.send(logServe.logsList.TRACE.ToHtml()));
-   app.get("/warn", async (req, res) => res.send(logServe.logsList.WARN.ToHtml()));
+   app.use(express.static(__dirname + "/web/dist"));
 
    app.get("/log/get/json/info", async (req, res) => res.json(logServe.logsList.INFO.ToJson()));
    app.get("/log/get/json/debug", async (req, res) => res.json(logServe.logsList.DEBUG.ToJson()));
@@ -32,8 +25,8 @@ const main = async () => {
    app.get("/log/get/json/trace", async (req, res) => res.json(logServe.logsList.TRACE.ToJson()));
    app.get("/log/get/json/warn", async (req, res) => res.json(logServe.logsList.WARN.ToJson()));
    app.get("/log/get/json/*", async (req, res) => res.json(logServe.GetLogsBundle(["ALL"]).ToJson()));
-
    app.get("/*", async (req, res) => res.send(`<div style="font-family: monospace"><p>404</p></div>`));
+
 
    const addLog = (req: any, res: any, logType: logType) => {
       const body: { data: string } = req.body;
@@ -56,9 +49,8 @@ const main = async () => {
 
    app.listen(serverPort);
 
-   setInterval(() => {
-      LogServerRequest.AddLog("INFO", Math.random().toString())
-   }, 100);
+   setInterval(() => LogServerRequest.AddLog("INFO", Math.random().toString()), 3000);
+   // setInterval(() => LogServerRequest.AddLog("DEBUG", Math.random().toString()), 1000);
 };
 
 main().then();

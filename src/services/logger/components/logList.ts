@@ -1,4 +1,11 @@
 import {log, Log, logType} from "./log";
+import LogWrapper from "./logWrapper";
+
+
+export type logList = {
+   listType: logType;
+   logs: Array<log>;
+}
 
 export class LogList {
    public readonly listType: logType;
@@ -26,18 +33,10 @@ export class LogList {
    }
 
 
-   public ToJson(limit?: number): Array<log> {
-      return this.GetLogs(limit).map((l: Log) => l.ToJson());
-   }
-
-   public ToHtml(limit?: number): string {
-      return `
-         <style>
-            *{margin: 0; padding: 0}
-         </style>
-         <div style="font-family: monospace">
-            ${this.GetLogs(limit).reverse().map(l => `<p>${l.ToString()}</p>`).join("")}
-         </div>
-      `;
+   public ToJson(limit?: number): logList {
+      return {
+         listType: this.listType,
+         logs: this.GetLogs(limit).map((l: Log) => LogWrapper.ToJson(l))
+      };
    }
 }

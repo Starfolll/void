@@ -1,6 +1,7 @@
 import {allLogsType, Log, log, logType} from "./components/log";
 import LogServerRequest from "./logServerRequest";
 import WebSocket from "ws";
+import LogWrapper from "./components/logWrapper";
 
 
 const main = async () => {
@@ -13,9 +14,11 @@ const main = async () => {
          if (args.has(t)) logTypes.add(t);
       });
 
+   if (logTypes.size === 0) logTypes.add("ALL");
+
    wsConnection.onmessage = (e: any) => {
       const data: { logType: logType, data: Array<log> } = JSON.parse(e.data);
-      data.data.forEach(l => console.log(new Log(l).ToConsoleString()));
+      data.data.forEach(l => console.log(LogWrapper.ToConsoleString(new Log(l))));
    }
    wsConnection.onclose = (e) => console.log(e);
    wsConnection.onopen = (e) => {

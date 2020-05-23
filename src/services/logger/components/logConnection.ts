@@ -1,6 +1,6 @@
 import WebSocket from "ws";
-import {log, logType} from "./log";
-import {LogList} from "./logList";
+import {logType} from "./log";
+import {logList} from "./logList";
 
 
 export default class LogConnection {
@@ -13,7 +13,7 @@ export default class LogConnection {
       this.connection = connection;
    }
 
-   public SendLogsData(logType: logType, data: Array<log>) {
-      this.connection.send(JSON.stringify({logType, data}));
+   public SendLogsData(logList: logList) {
+      this.connection.send(JSON.stringify(logList));
    }
 }

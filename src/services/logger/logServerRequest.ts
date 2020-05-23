@@ -14,19 +14,19 @@ export default class LogServerRequest {
       }
    }
 
-   public static async WSSubscribeToLogs(connection: WebSocket, logsType: Array<logType>) {
+   public static async WSSubscribeToLogs(connection: WebSocket | any, logsType: Array<logType>) {
       connection.send(JSON.stringify({
          messageType: "SUBSCRIBE_TO_LOG", logsType
       } as logServerWSConnectionActions));
    }
 
-   public static async WSUnsubscribeFromLogs(connection: WebSocket, logsType: Array<logType>) {
+   public static async WSUnsubscribeFromLogs(connection: WebSocket | any, logsType: Array<logType>) {
       connection.send(JSON.stringify({
          messageType: "UNSUBSCRIBE_FROM_LOG", logsType
       } as logServerWSConnectionActions));
    }
 
-   public static async WSGetLogsList(connection: WebSocket, logsType: Array<logType>) {
+   public static async WSGetLogsList(connection: WebSocket | any, logsType: Array<logType>) {
       connection.send(JSON.stringify({
          messageType: "GET_LOG_LIST", logsType
       } as logServerWSConnectionActions));

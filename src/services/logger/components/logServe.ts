@@ -4,6 +4,7 @@ import WebSocket from "ws";
 import LogConnection from "./logConnection";
 import uniqId from "uniqid";
 import Joi from "joi";
+import LogWrapper from "./logWrapper";
 
 
 const SUBSCRIBE_TO_LOG = "SUBSCRIBE_TO_LOG";
@@ -33,7 +34,7 @@ export type logServerWSConnectionActions =
 
 export default class LogServe {
    private readonly wsPort: number;
-   private readonly logConnections: { [uniqid: string]: LogConnection } = {};
+   private readonly logConnections: { [uniqId: string]: LogConnection } = {};
 
    public readonly logsList = {
       INFO: new LogList({listType: "INFO"}),
@@ -67,7 +68,7 @@ export default class LogServe {
             switch (data.messageType) {
                case "GET_LOG_LIST":
                   const logsBundle = this.GetLogsBundle(data.logsType);
-                  this.logConnections[connectionUniqId].SendLogsData(logsBundle.listType, logsBundle.GetLogs());
+                  this.logConnections[connectionUniqId].SendLogsData(logsBundle.ToJson());
                   break;
 
                case "SUBSCRIBE_TO_LOG":
@@ -114,7 +115,7 @@ export default class LogServe {
    public AddLog(logType: logType, data: string) {
       if (logType !== "ALL") {
          const newLog = new Log({type: logType, data});
-         console.log(newLog.ToConsoleString());
+         console.log(LogWrapper.ToConsoleString(newLog));
 
          this.logsList[logType].AddLog(newLog);
          this.SendLogToConnections(newLog);
@@ -126,7 +127,10 @@ export default class LogServe {
          const logConnection = this.logConnections[connection];
 
          if (logConnection.assignedLogTypes.has(log.type))
-            logConnection.SendLogsData(log.type, [log.ToJson()]);
+            logConnection.SendLogsData({
+               listType: log.type,
+               logs: [LogWrapper.ToJson(log)]
+            });
       }
    }
 }

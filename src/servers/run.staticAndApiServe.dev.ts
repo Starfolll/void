@@ -8,6 +8,7 @@ import StaticApi from "./api/static/static.api";
 import * as core from "express-serve-static-core";
 import dirPath from "./router/dirPaths";
 import fileUpload from "express-fileupload";
+import logServerRequest from "../services/logger/logServerRequest";
 
 
 export default class StaticAndApiServeServerDev extends StaticApi {
@@ -19,6 +20,7 @@ export default class StaticAndApiServeServerDev extends StaticApi {
          avatarStoragePass: dirPath.userAvatarsFolder
       });
 
+      logServerRequest.AddLog("DEBUG", "jvycy");
       logInfo("Mode: STATIC AND API SERVE");
       logInfo(`Server version: ${process.env.npm_package_version}`);
 

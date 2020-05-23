@@ -1445,8 +1445,44 @@
         "version": "85affdad5ba01126b1c56fc0b8f0b51862752cd96d04f74bdcdeff6de6e19855",
         "signature": "0f3bde3044ea4162e5831658b32d34817f0721c0c4ce260d31ee422d82482b13"
       },
+      "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": {
+        "version": "cbb7029e32a6a72178cda8baa9129b1ee6d1d779a35e46c780e38b4909d42a89",
+        "signature": "cbb7029e32a6a72178cda8baa9129b1ee6d1d779a35e46c780e38b4909d42a89"
+      },
+      "./node_modules/@types/node-fetch/externals.d.ts": {
+        "version": "972f1e91dab93b182624a17eeed02f683b8cb3fefbda7b689cc84570029d5f73",
+        "signature": "972f1e91dab93b182624a17eeed02f683b8cb3fefbda7b689cc84570029d5f73"
+      },
+      "./node_modules/@types/node-fetch/index.d.ts": {
+        "version": "f51382950fa81e3a54e9fd9f343fe583cfbb221f15a51936e12411699347effe",
+        "signature": "f51382950fa81e3a54e9fd9f343fe583cfbb221f15a51936e12411699347effe"
+      },
+      "./src/services/logger/components/log.ts": {
+        "version": "5c83cf1e513db141f83638b44dfdaae41ea65d79f9a266bc1962a9bbd431b224",
+        "signature": "fc44810211121c2a72ceaaf9261d2f248c77f5133813973b4e48d55ea3941449"
+      },
+      "./src/services/logger/components/logWrapper.ts": {
+        "version": "ffbfeba6a5bd8eaa01ed8f0b58e82de9e84a43ecf52a9e453a6aa44a911ff2a1",
+        "signature": "31292811a292b76cc9e38fd05e16ff4ed9451b655131e126a78599ade33981a7"
+      },
+      "./src/services/logger/components/logList.ts": {
+        "version": "53037b9f4dfd8203f291001d664803dc86ed37af1213a8eb84236073f9f82c7a",
+        "signature": "b838372778ee088ce6da078084b933a1bf4b4d604ccac70ad467c75893632b5d"
+      },
+      "./src/services/logger/components/logConnection.ts": {
+        "version": "50af5e40296fff3420f249944d418798bae9a7d4ce6fce185d98b4b364620e07",
+        "signature": "c384022482f76d7e4b463ad095811dd30cbdd490c07a263fb9c605051dd5357c"
+      },
+      "./src/services/logger/components/logServe.ts": {
+        "version": "4e3cf69a283507a897068112a2b202ee79efa4cc59b4b64ab278f0ddb3dafa96",
+        "signature": "3abb0bf99bd613005ad7da1556599459897453c6c13a9807ec1236c70546c88c"
+      },
+      "./src/services/logger/logServerRequest.ts": {
+        "version": "8c3c2065c30ba62ec527362b469924380771e0288449d734dd35d3d9e5a6ddd0",
+        "signature": "b1885ff523f9a2cce48721940a9d5273610c4b4935e56dd2bcd76ed3918af17c"
+      },
       "./src/servers/run.staticAndApiServe.dev.ts": {
-        "version": "8d9e15a5818203c49f921aa599ccf78a9e985653f883776d349d0dfb60a0a28d",
+        "version": "f7abfff6bf0c9ace86405df82a1c6140ff6fd0c56488f34c7855708cfa9f1c4f",
         "signature": "10f7a21196f6ecd5b043f8f350d71fb08957a84bca823fee0099e842f69780cf"
       },
       "./src/servers/utils/consoleLogs/logDash.ts": {
@@ -1513,44 +1549,28 @@
         "version": "5dcc95fafcd1e74971de6e3f936ce47a147a0d2acb99732d3f1be0d325c45074",
         "signature": "c3046e78fd3f0de5f54ac1d3cad37efeb9228f8ead9ed26427e0c6794c278c51"
       },
-      "./src/services/logger/components/log.ts": {
-        "version": "1814d0566ac1cf1a41f9e3bf22ea1edca1d564dd68d5637fc1619f8100900a2f",
-        "signature": "65c278aab3f324dedbc01ba6cff92bd1ec024a93da8733f6419a8a7ca04c7b5a"
-      },
-      "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": {
-        "version": "cbb7029e32a6a72178cda8baa9129b1ee6d1d779a35e46c780e38b4909d42a89",
-        "signature": "cbb7029e32a6a72178cda8baa9129b1ee6d1d779a35e46c780e38b4909d42a89"
-      },
-      "./node_modules/@types/node-fetch/externals.d.ts": {
-        "version": "972f1e91dab93b182624a17eeed02f683b8cb3fefbda7b689cc84570029d5f73",
-        "signature": "972f1e91dab93b182624a17eeed02f683b8cb3fefbda7b689cc84570029d5f73"
-      },
-      "./node_modules/@types/node-fetch/index.d.ts": {
-        "version": "f51382950fa81e3a54e9fd9f343fe583cfbb221f15a51936e12411699347effe",
-        "signature": "f51382950fa81e3a54e9fd9f343fe583cfbb221f15a51936e12411699347effe"
-      },
-      "./src/services/logger/components/logList.ts": {
-        "version": "ab80e0a0c7956779e3648765763c4615c1e2263c5130f40b7cdc4b4530668716",
-        "signature": "b838372778ee088ce6da078084b933a1bf4b4d604ccac70ad467c75893632b5d"
-      },
-      "./src/services/logger/components/logConnection.ts": {
-        "version": "50af5e40296fff3420f249944d418798bae9a7d4ce6fce185d98b4b364620e07",
-        "signature": "c384022482f76d7e4b463ad095811dd30cbdd490c07a263fb9c605051dd5357c"
-      },
-      "./src/services/logger/components/logServe.ts": {
-        "version": "2fc33afb1b13f0259ee0fbc3eb7d6927c96d05623d6b1eb843a6ddd8fbbda8f9",
-        "signature": "3abb0bf99bd613005ad7da1556599459897453c6c13a9807ec1236c70546c88c"
-      },
-      "./src/services/logger/logServerRequest.ts": {
-        "version": "8c3c2065c30ba62ec527362b469924380771e0288449d734dd35d3d9e5a6ddd0",
-        "signature": "b1885ff523f9a2cce48721940a9d5273610c4b4935e56dd2bcd76ed3918af17c"
-      },
       "./src/services/logger/logCli.ts": {
-        "version": "16b0c923b0ed27ea066e2f6e492078bd25ddd84ddb60b92d895e4678dfdbdd04",
+        "version": "ca108f509c4c8333426a889f57996154a344b8f38668028b3405a32f6a0a69e4",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/services/logger/logServer.ts": {
-        "version": "1bbab99e4a9f98b19940934124dcee0a32f7e2af56d3d1e7a7687bc01c19f359",
+        "version": "c482ba079795a6bb9170f0693db82e450649faf9e8bad5e3ecfd11fc9989fa98",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "./src/services/logger/public/components/UILog.ts": {
+        "version": "bb839a6be09450517a499ab39e8505b93f9b90b4ca45024aabcba9abe0bc77e3",
+        "signature": "bcd267bace229383a78097e2aaa9376e1bfa8ccf344e90cd6ae2c7326e2b3273"
+      },
+      "./src/services/logger/public/components/core/UIElement.ts": {
+        "version": "e456dc8659801ff0963d10affa29c18a21f6b999464b658c7e969427332ffaf2",
+        "signature": "ffd51a5675add8d00e2230486f4bdce7b7161a0888bfc8c3d41f15cbce11c54a"
+      },
+      "./src/services/logger/public/components/UINavBar.ts": {
+        "version": "e67b4d465cf98b80d7a7f8074b03d060b59255cb4f43f4fb1671a6e4034ae7f2",
+        "signature": "c3c44382fba8972ac58685ae40891f03f63ab7a6a8236eca092e1c0be1818f91"
+      },
+      "./src/services/logger/public/components/app.ts": {
+        "version": "67083152136cde0e45dfa83f24df209b2a859983c4c4b4f9aa7fbe42267f6e1c",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./node_modules/@types/bson/index.d.ts": {
@@ -4721,6 +4741,86 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": [
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/node-fetch/externals.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/node-fetch/index.d.ts": [
+        "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node-fetch/externals.d.ts",
+        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/components/log.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/components/logWrapper.ts": [
+        "./src/services/logger/components/log.ts",
+        "./node_modules/chalk/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/components/logList.ts": [
+        "./src/services/logger/components/log.ts",
+        "./src/services/logger/components/logWrapper.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/components/logConnection.ts": [
+        "./node_modules/@types/ws/index.d.ts",
+        "./src/services/logger/components/log.ts",
+        "./src/services/logger/components/logList.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/components/logServe.ts": [
+        "./src/services/logger/components/logList.ts",
+        "./src/services/logger/components/log.ts",
+        "./node_modules/@types/ws/index.d.ts",
+        "./src/services/logger/components/logConnection.ts",
+        "./node_modules/@types/uniqid/index.d.ts",
+        "./node_modules/@types/joi/index.d.ts",
+        "./src/services/logger/components/logWrapper.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/logServerRequest.ts": [
+        "./node_modules/@types/node-fetch/index.d.ts",
+        "./src/services/logger/components/log.ts",
+        "./src/services/logger/components/logServe.ts",
+        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "./src/servers/run.staticAndApiServe.dev.ts": [
         "./node_modules/@types/express/index.d.ts",
         "./src/servers/router/static/webPage.route.ts",
@@ -4731,6 +4831,7 @@
         "./node_modules/@types/express-serve-static-core/index.d.ts",
         "./src/servers/router/dirPaths.ts",
         "./node_modules/@types/express-fileupload/index.d.ts",
+        "./src/services/logger/logServerRequest.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4846,81 +4947,11 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./src/services/logger/components/log.ts": [
-        "./node_modules/chalk/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": [
-        "./node_modules/@types/node/stream.d.ts",
-        "./node_modules/@types/node/http.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./node_modules/@types/node-fetch/externals.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./node_modules/@types/node-fetch/index.d.ts": [
-        "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts",
-        "./node_modules/@types/node/http.d.ts",
-        "./node_modules/@types/node/url.d.ts",
-        "./node_modules/@types/node-fetch/externals.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./src/services/logger/components/logList.ts": [
-        "./src/services/logger/components/log.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./src/services/logger/components/logConnection.ts": [
-        "./node_modules/@types/ws/index.d.ts",
-        "./src/services/logger/components/log.ts",
-        "./src/services/logger/components/logList.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./src/services/logger/components/logServe.ts": [
-        "./src/services/logger/components/logList.ts",
-        "./src/services/logger/components/log.ts",
-        "./node_modules/@types/ws/index.d.ts",
-        "./src/services/logger/components/logConnection.ts",
-        "./node_modules/@types/uniqid/index.d.ts",
-        "./node_modules/@types/joi/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "./src/services/logger/logServerRequest.ts": [
-        "./node_modules/@types/node-fetch/index.d.ts",
-        "./src/services/logger/components/log.ts",
-        "./src/services/logger/components/logServe.ts",
-        "./node_modules/@types/ws/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.2/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "./src/services/logger/logCli.ts": [
         "./src/services/logger/components/log.ts",
         "./src/services/logger/logServerRequest.ts",
         "./node_modules/@types/ws/index.d.ts",
+        "./src/services/logger/components/logWrapper.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4932,6 +4963,33 @@
         "./src/services/logger/components/log.ts",
         "./src/services/logger/components/logServe.ts",
         "./src/services/logger/logServerRequest.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/public/components/UILog.ts": [
+        "./src/services/logger/components/log.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/public/components/core/UIElement.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/public/components/UINavBar.ts": [
+        "./src/services/logger/public/components/core/UIElement.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/services/logger/public/components/app.ts": [
+        "./src/services/logger/public/components/UINavBar.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -5466,7 +5524,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/graphql/language/lexer.d.ts": [
-        "./node_modules/graphql/error/index.d.ts",
+        "./node_modules/graphql/error/app.d.ts",
         "./node_modules/graphql/language/ast.d.ts",
         "./node_modules/graphql/language/source.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -6198,7 +6256,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/prisma-client-lib/dist/types.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6231,7 +6289,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-link/lib/types.d.ts": [
-        "./node_modules/zen-observable-ts/lib/index.d.ts",
+        "./node_modules/zen-observable-ts/lib/app.d.ts",
         "./node_modules/graphql/language/ast.d.ts",
         "./node_modules/graphql/execution/execute.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -6240,7 +6298,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-link/lib/link.d.ts": [
-        "./node_modules/zen-observable-ts/lib/index.d.ts",
+        "./node_modules/zen-observable-ts/lib/app.d.ts",
         "./node_modules/apollo-link/lib/types.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -6248,28 +6306,28 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-utilities/lib/directives.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-utilities/lib/fragments.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-utilities/lib/storeUtils.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-utilities/lib/getFromAST.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/apollo-utilities/lib/storeUtils.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -6277,7 +6335,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-utilities/lib/transform.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6308,7 +6366,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-utilities/lib/util/errorHandling.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6373,10 +6431,10 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/apollo-link/lib/linkUtils.d.ts": [
-        "./node_modules/zen-observable-ts/lib/index.d.ts",
+        "./node_modules/zen-observable-ts/lib/app.d.ts",
         "./node_modules/apollo-link/lib/types.d.ts",
         "./node_modules/apollo-link/lib/link.d.ts",
-        "./node_modules/apollo-utilities/lib/index.d.ts",
+        "./node_modules/apollo-utilities/lib/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6393,7 +6451,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/http-link-dataloader/dist/src/HTTPLinkDataloader.d.ts": [
-        "./node_modules/apollo-link/lib/index.d.ts",
+        "./node_modules/apollo-link/lib/app.d.ts",
         "./node_modules/http-link-dataloader/dist/src/types.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -6402,7 +6460,7 @@
       ],
       "./node_modules/http-link-dataloader/dist/src/BatchedGraphQLClient.d.ts": [
         "./node_modules/http-link-dataloader/dist/src/types.d.ts",
-        "./node_modules/http-link-dataloader/dist/src/index.d.ts",
+        "./node_modules/http-link-dataloader/dist/src/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6424,7 +6482,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/subscriptions-transport-ws/dist/client.d.ts": [
-        "./node_modules/eventemitter3/index.d.ts",
+        "./node_modules/eventemitter3/app.d.ts",
         "./node_modules/graphql/execution/execute.d.ts",
         "./node_modules/graphql/language/ast.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -6806,10 +6864,10 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/subscriptions-transport-ws/dist/server.d.ts": [
-        "./node_modules/@types/ws/index.d.ts",
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/@types/ws/app.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/http.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6839,9 +6897,9 @@
       ],
       "./node_modules/prisma-client-lib/dist/Client.d.ts": [
         "./node_modules/prisma-client-lib/dist/types.d.ts",
-        "./node_modules/graphql/index.d.ts",
-        "./node_modules/http-link-dataloader/dist/src/index.d.ts",
-        "./node_modules/subscriptions-transport-ws/dist/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
+        "./node_modules/http-link-dataloader/dist/src/app.d.ts",
+        "./node_modules/subscriptions-transport-ws/dist/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6914,7 +6972,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/prisma-datamodel/dist/util/astTools.d.ts": [
-        "./node_modules/graphql/type/index.d.ts",
+        "./node_modules/graphql/type/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6967,9 +7025,9 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/prisma-client-lib/dist/codegen/Generator.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/prisma-client-lib/dist/codegen/types.d.ts",
-        "./node_modules/prisma-datamodel/dist/index.d.ts",
+        "./node_modules/prisma-datamodel/dist/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6982,9 +7040,9 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/prisma-client-lib/dist/codegen/generators/typescript-client.d.ts": [
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/prisma-client-lib/dist/codegen/Generator.d.ts",
-        "./node_modules/@types/prettier/index.d.ts",
+        "./node_modules/@types/prettier/app.d.ts",
         "./node_modules/prisma-client-lib/dist/codegen/types.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -6993,7 +7051,7 @@
       ],
       "./node_modules/prisma-client-lib/dist/codegen/generators/javascript-client.d.ts": [
         "./node_modules/prisma-client-lib/dist/codegen/generators/typescript-client.d.ts",
-        "./node_modules/@types/prettier/index.d.ts",
+        "./node_modules/@types/prettier/app.d.ts",
         "./node_modules/prisma-client-lib/dist/codegen/types.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -7009,7 +7067,7 @@
       ],
       "./node_modules/prisma-client-lib/dist/codegen/generators/go-client.d.ts": [
         "./node_modules/prisma-client-lib/dist/codegen/Generator.d.ts",
-        "./node_modules/graphql/index.d.ts",
+        "./node_modules/graphql/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7017,7 +7075,7 @@
       ],
       "./node_modules/prisma-client-lib/dist/codegen/generators/flow-client.d.ts": [
         "./node_modules/prisma-client-lib/dist/codegen/generators/typescript-client.d.ts",
-        "./node_modules/@types/prettier/index.d.ts",
+        "./node_modules/@types/prettier/app.d.ts",
         "./node_modules/prisma-client-lib/dist/codegen/types.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
@@ -7127,7 +7185,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./src/servers/models/wrappedPrisma.ts": [
-        "./generated/prisma-client/index.ts"
+        "./generated/prisma-client/app.ts"
       ],
       "./src/servers/models/table/db_tables.ts": [
         "./src/servers/models/table/table.ts",
@@ -7223,7 +7281,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/type-fest/source/package-json.d.ts": [
-        "./node_modules/type-fest/index.d.ts",
+        "./node_modules/type-fest/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7298,7 +7356,7 @@
         "./src/servers/models/user/user.ts",
         "./src/servers/gamesManager/gameTableManager/deck/card.ts",
         "./src/servers/gamesManager/gameTableManager/heroesStacks/heroAbilityTypes.ts",
-        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/ws/app.d.ts",
         "./src/servers/gamesManager/players/players.ts",
         "./src/servers/utils/chat/chatMessage.ts",
         "./src/servers/gamesManager/gameTableManager/heroesStacks/heroDebuffsTypes.ts"
@@ -7347,7 +7405,7 @@
         "./src/servers/gamesManager/gameTableManager/gameTable.ts"
       ],
       "./src/servers/gamesManager/gamesManager.ts": [
-        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/ws/app.d.ts",
         "./src/servers/gamesManager/gameTableManager/deck/card.ts",
         "./src/servers/gamesManager/gameTableManager/heroesStacks/hero.ts",
         "./src/servers/models/table/table.ts",
@@ -7427,7 +7485,7 @@
         "./src/servers/gamesManager/gameTableManager/heroesStacks/hero.ts"
       ],
       "./src/servers/api/gamesManager/gamesManager.api.ts": [
-        "./node_modules/@types/express-serve-static-core/index.d.ts",
+        "./node_modules/@types/express-serve-static-core/app.d.ts",
         "./src/servers/gamesManager/gamesManager.ts"
       ],
       "./src/servers/run.gameManager.dev.ts": [
@@ -7440,7 +7498,7 @@
       "./src/servers/models/lobby/lobby.ts": [
         "./src/servers/utils/chat/chatMessage.ts",
         "./src/servers/models/user/user.ts",
-        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/ws/app.d.ts",
         "./src/servers/globalLobbyManager/lobbyUser.ts",
         "./src/servers/models/room/room.ts"
       ],
@@ -7468,7 +7526,7 @@
       ],
       "./src/servers/globalLobbyManager/lobbyUser.ts": [
         "./src/servers/models/user/user.ts",
-        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/ws/app.d.ts",
         "./src/servers/models/lobby/lobby.ts",
         "./src/servers/utils/chat/chatMessage.ts",
         "./src/servers/models/room/room.ts"
@@ -7494,21 +7552,21 @@
       "./src/servers/globalLobbyManager/globalLobby.ts": [
         "./src/servers/models/lobby/lobby.ts",
         "./src/servers/models/user/user.ts",
-        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/ws/app.d.ts",
         "./src/servers/globalLobbyManager/lobbyUser.ts"
       ],
       "./src/servers/globalLobbyManager/globalLobbyManager.ts": [
-        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/@types/ws/app.d.ts",
         "./src/servers/globalLobbyManager/globalLobby.ts"
       ],
       "./src/servers/router/static/webPage.route.ts": [
-        "./node_modules/@types/express-serve-static-core/index.d.ts"
+        "./node_modules/@types/express-serve-static-core/app.d.ts"
       ],
       "./src/servers/router/static/usersAvatar.ts": [
-        "./node_modules/@types/express-serve-static-core/index.d.ts"
+        "./node_modules/@types/express-serve-static-core/app.d.ts"
       ],
       "./src/servers/api/static/static.api.reqValidationsSchemas.ts": [
-        "./node_modules/@types/joi/index.d.ts"
+        "./node_modules/@types/joi/app.d.ts"
       ],
       "./node_modules/@types/nodemailer/lib/dkim/index.d.ts": [
         "./node_modules/@types/node/stream.d.ts",
@@ -7520,9 +7578,9 @@
       ],
       "./node_modules/@types/nodemailer/lib/mailer/mail-message.d.ts": [
         "./node_modules/@types/node/stream.d.ts",
-        "./node_modules/@types/nodemailer/lib/mailer/index.d.ts",
-        "./node_modules/@types/nodemailer/lib/mime-node/index.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mailer/app.d.ts",
+        "./node_modules/@types/nodemailer/lib/mime-node/app.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7532,7 +7590,7 @@
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/stream.d.ts",
         "./node_modules/@types/nodemailer/lib/shared.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7581,9 +7639,9 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./node_modules/@types/nodemailer/lib/shared.d.ts": [
-        "./node_modules/@types/nodemailer/lib/smtp-connection/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/smtp-connection/app.d.ts",
         "./node_modules/@types/node/stream.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7591,12 +7649,12 @@
       ],
       "./node_modules/@types/nodemailer/lib/json-transport.d.ts": [
         "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/nodemailer/index.d.ts",
+        "./node_modules/@types/nodemailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/shared.d.ts",
-        "./node_modules/@types/nodemailer/lib/mailer/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/mailer/mail-message.d.ts",
-        "./node_modules/@types/nodemailer/lib/mime-node/index.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mime-node/app.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7616,12 +7674,12 @@
       ],
       "./node_modules/@types/nodemailer/lib/ses-transport.d.ts": [
         "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/nodemailer/index.d.ts",
+        "./node_modules/@types/nodemailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/shared.d.ts",
-        "./node_modules/@types/nodemailer/lib/mailer/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/mailer/mail-message.d.ts",
-        "./node_modules/@types/nodemailer/lib/mime-node/index.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mime-node/app.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7644,14 +7702,14 @@
       "./node_modules/@types/nodemailer/lib/smtp-transport.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/stream.d.ts",
-        "./node_modules/@types/nodemailer/index.d.ts",
+        "./node_modules/@types/nodemailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/shared.d.ts",
-        "./node_modules/@types/nodemailer/lib/mailer/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/mailer/mail-message.d.ts",
-        "./node_modules/@types/nodemailer/lib/mime-node/index.d.ts",
-        "./node_modules/@types/nodemailer/lib/smtp-connection/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mime-node/app.d.ts",
+        "./node_modules/@types/nodemailer/lib/smtp-connection/app.d.ts",
         "./node_modules/@types/nodemailer/lib/xoauth2.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7660,12 +7718,12 @@
       "./node_modules/@types/nodemailer/lib/stream-transport.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/stream.d.ts",
-        "./node_modules/@types/nodemailer/index.d.ts",
+        "./node_modules/@types/nodemailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/shared.d.ts",
-        "./node_modules/@types/nodemailer/lib/mailer/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mailer/app.d.ts",
         "./node_modules/@types/nodemailer/lib/mailer/mail-message.d.ts",
-        "./node_modules/@types/nodemailer/lib/mime-node/index.d.ts",
-        "./node_modules/@types/node/ts3.2/index.d.ts",
+        "./node_modules/@types/nodemailer/lib/mime-node/app.d.ts",
+        "./node_modules/@types/node/ts3.2/app.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7687,10 +7745,10 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./src/servers/mailer/transporter.account.ts": [
-        "./node_modules/@types/nodemailer/lib/mailer/index.d.ts"
+        "./node_modules/@types/nodemailer/lib/mailer/app.d.ts"
       ],
       "./src/servers/mailer/transporter.emails.ts": [
-        "./node_modules/@types/nodemailer/lib/mailer/index.d.ts"
+        "./node_modules/@types/nodemailer/lib/mailer/app.d.ts"
       ],
       "./node_modules/@types/express-fileupload/index.d.ts": [
         "./node_modules/@types/express/index.d.ts",
@@ -7706,10 +7764,7 @@
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./src/servers/api/static/static.api.ts": [
-        "./node_modules/@types/express-serve-static-core/index.d.ts"
-      ],
-      "./src/servers/run.staticAndApiServe.dev.ts": [
-        "./src/servers/api/static/static.api.ts"
+        "./node_modules/@types/express-serve-static-core/app.d.ts"
       ],
       "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": [
         "./node_modules/@types/node/stream.d.ts",
@@ -7737,20 +7792,32 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./src/services/logger/components/logList.ts": [
+      "./src/services/logger/components/logWrapper.ts": [
         "./src/services/logger/components/log.ts"
       ],
+      "./src/services/logger/components/logList.ts": [
+        "./src/services/logger/components/UILog.ts"
+      ],
       "./src/services/logger/components/logConnection.ts": [
-        "./src/services/logger/components/log.ts",
-        "./node_modules/@types/ws/index.d.ts"
+        "./src/services/logger/components/UILog.ts",
+        "./node_modules/@types/ws/app.d.ts"
       ],
       "./src/services/logger/components/logServe.ts": [
         "./src/services/logger/components/logList.ts",
-        "./src/services/logger/components/log.ts"
+        "./src/services/logger/components/UILog.ts"
       ],
       "./src/services/logger/logServerRequest.ts": [
-        "./src/services/logger/components/log.ts",
-        "./node_modules/@types/ws/index.d.ts"
+        "./src/services/logger/components/UILog.ts",
+        "./node_modules/@types/ws/app.d.ts"
+      ],
+      "./src/servers/run.staticAndApiServe.dev.ts": [
+        "./src/servers/api/static/static.api.ts"
+      ],
+      "./src/services/logger/public/components/UILog.ts": [
+        "./src/services/logger/components/log.ts"
+      ],
+      "./src/services/logger/public/components/UINavBar.ts": [
+        "./src/services/logger/public/components/core/UIElement.ts"
       ],
       "./node_modules/@types/bson/index.d.ts": [
         "./node_modules/@types/node/ts3.2/index.d.ts",
@@ -8182,6 +8249,15 @@
       "./node_modules/@types/express-fileupload/index.d.ts",
       "./node_modules/@types/uniqid/index.d.ts",
       "./src/servers/api/static/static.api.ts",
+      "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts",
+      "./node_modules/@types/node-fetch/externals.d.ts",
+      "./node_modules/@types/node-fetch/index.d.ts",
+      "./src/services/logger/components/log.ts",
+      "./src/services/logger/components/logWrapper.ts",
+      "./src/services/logger/components/logList.ts",
+      "./src/services/logger/components/logConnection.ts",
+      "./src/services/logger/components/logServe.ts",
+      "./src/services/logger/logServerRequest.ts",
       "./src/servers/run.staticAndApiServe.dev.ts",
       "./src/servers/utils/consoleLogs/logDash.ts",
       "./src/servers/utils/consoleLogs/letters/logLetter.H.ts",
@@ -8199,15 +8275,11 @@
       "./src/servers/utils/consoleLogs/letters/getLetterRow.ts",
       "./src/servers/utils/consoleLogs/logLetters.ts",
       "./src/servers/utils/consoleLogs/logSystemInfo.ts",
-      "./src/services/logger/components/log.ts",
-      "./node_modules/@types/node-fetch/node_modules/form-data/index.d.ts",
-      "./node_modules/@types/node-fetch/externals.d.ts",
-      "./node_modules/@types/node-fetch/index.d.ts",
-      "./src/services/logger/components/logConnection.ts",
-      "./src/services/logger/components/logServe.ts",
-      "./src/services/logger/logServerRequest.ts",
       "./src/services/logger/logCli.ts",
       "./src/services/logger/logServer.ts",
+      "./src/services/logger/public/components/UILog.ts",
+      "./src/services/logger/public/components/core/UIElement.ts",
+      "./src/services/logger/public/components/UINavBar.ts",
       "./node_modules/@types/bson/index.d.ts",
       "./node_modules/@types/color-name/index.d.ts",
       "./node_modules/@types/concat-stream/index.d.ts",
@@ -8217,7 +8289,7 @@
       "./node_modules/@types/mysql/index.d.ts",
       "./node_modules/@types/readline-sync/index.d.ts",
       "./node_modules/@types/tough-cookie/index.d.ts",
-      "./src/services/logger/components/logList.ts"
+      "./src/services/logger/public/components/app.ts"
     ]
   },
   "version": "3.8.3"
