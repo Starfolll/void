@@ -43,6 +43,12 @@ package-lock.json
 /src/electron/node_modules
 /src/electron/package-lock.json
 
+# SERVICES
+/src/services/logger/.idea
+/src/services/logger/web/dist
+/src/services/logger/node_modules
+/src/services/logger/package-lock.json\
+
 # TEST
 ###################
 
