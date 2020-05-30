@@ -1,7 +1,7 @@
 /dist
 /.idea
 /generated
-/node_modules
+/**/node_modules
 
 .env
 .tsbuildinfo
@@ -37,7 +37,7 @@ package-lock.json
 /src/web/node_modules
 /src/web/package-lock.json
 
-# ELECTRON
+# ELECTRONl
 /src/electron/.idea
 /src/electron/dist
 /src/electron/node_modules

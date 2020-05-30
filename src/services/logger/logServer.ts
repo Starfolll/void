@@ -2,7 +2,6 @@ import Joi from "joi";
 import express from "express";
 import {logType} from "./components/log";
 import LogServe from "./components/logServe";
-import LogServerRequest from "./logServerRequest";
 
 
 // http://www.tutorialspoint.com/log4j/log4j_logging_levels.htm
@@ -18,6 +17,7 @@ const main = async () => {
    app.use(express.json());
    app.use(express.static(__dirname + "/web/dist"));
 
+
    app.get("/log/get/json/info", async (req, res) => res.json(logServe.logsList.INFO.ToJson()));
    app.get("/log/get/json/debug", async (req, res) => res.json(logServe.logsList.DEBUG.ToJson()));
    app.get("/log/get/json/error", async (req, res) => res.json(logServe.logsList.ERROR.ToJson()));
@@ -25,7 +25,20 @@ const main = async () => {
    app.get("/log/get/json/trace", async (req, res) => res.json(logServe.logsList.TRACE.ToJson()));
    app.get("/log/get/json/warn", async (req, res) => res.json(logServe.logsList.WARN.ToJson()));
    app.get("/log/get/json/*", async (req, res) => res.json(logServe.GetLogsBundle(["ALL"]).ToJson()));
-   app.get("/*", async (req, res) => res.send(`<div style="font-family: monospace"><p>404</p></div>`));
+   app.get("/*", async (req, res) => res.send(`
+        <div style="font-family: monospace">
+            <p>LOG SERVE</p>
+            <hr/>
+            <a href="/log/get/json/" style="color: black">ALL</a>
+            <hr/>
+            <a href="/log/get/json/info" style="color: black">INFO</a>
+            <a href="/log/get/json/debug" style="color: black">DEBUG</a>
+            <a href="/log/get/json/error" style="color: black">ERROR</a>
+            <a href="/log/get/json/fatal" style="color: black">FATAL</a>
+            <a href="/log/get/json/trace" style="color: black">TRACE</a>
+            <a href="/log/get/json/warn" style="color: black">WARN</a>
+        </div>
+   `));
 
 
    const addLog = (req: any, res: any, logType: logType) => {
@@ -42,15 +55,11 @@ const main = async () => {
    app.post("/log/add/warn", async (req: any, res: any) => addLog(req, res, "WARN"));
    app.post("/log/add/trace", async (req: any, res: any) => addLog(req, res, "TRACE"));
    app.post("/log/add/fatal", async (req: any, res: any) => addLog(req, res, "FATAL"));
-   app.post("/*", async (req: any, res: any) => {
-      console.log(req.body);
-      res.send();
+
+
+   app.listen(serverPort, () => {
+      logServe.AddLog("INFO", "Log server is up and running");
    });
-
-   app.listen(serverPort);
-
-   setInterval(() => LogServerRequest.AddLog("INFO", Math.random().toString()), 3000);
-   // setInterval(() => LogServerRequest.AddLog("DEBUG", Math.random().toString()), 1000);
 };
 
 main().then();

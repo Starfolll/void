@@ -25,7 +25,7 @@ export class Log {
    }) {
       this.type = props.type;
       this.data = props.data;
-      this.id = !!props.id ? props.id : uniqId(undefined, `-${(Math.random() * 1000000 | 0)}`);
+      this.id = !!props.id ? props.id : `${uniqId(undefined)}-${(Math.random() * 1000000 | 0)}`;
 
       if (props.time) this.time = new Date(props.time);
    }
