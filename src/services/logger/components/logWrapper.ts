@@ -35,4 +35,8 @@ export default class LogWrapper {
          id: log.id
       };
    }
+
+   public static ToHTML(log: Log): string {
+      return `<p>[${log.time.toUTCString()}] [${log.type}] ${log.data}</p>`;
+   }
 }

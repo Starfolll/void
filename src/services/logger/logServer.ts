@@ -17,6 +17,13 @@ const main = async () => {
    app.use(express.json());
    app.use(express.static(__dirname + "/web/dist"));
 
+   app.get("/log/get/html/info", async (req, res) => res.send(logServe.logsList.INFO.ToHTML()));
+   app.get("/log/get/html/debug", async (req, res) => res.send(logServe.logsList.DEBUG.ToHTML()));
+   app.get("/log/get/html/error", async (req, res) => res.send(logServe.logsList.ERROR.ToHTML()));
+   app.get("/log/get/html/fatal", async (req, res) => res.send(logServe.logsList.FATAL.ToHTML()));
+   app.get("/log/get/html/trace", async (req, res) => res.send(logServe.logsList.TRACE.ToHTML()));
+   app.get("/log/get/html/warn", async (req, res) => res.send(logServe.logsList.WARN.ToHTML()));
+   app.get("/log/get/html/*", async (req, res) => res.send(logServe.GetLogsBundle(["ALL"]).ToHTML()));
 
    app.get("/log/get/json/info", async (req, res) => res.json(logServe.logsList.INFO.ToJson()));
    app.get("/log/get/json/debug", async (req, res) => res.json(logServe.logsList.DEBUG.ToJson()));
@@ -25,18 +32,29 @@ const main = async () => {
    app.get("/log/get/json/trace", async (req, res) => res.json(logServe.logsList.TRACE.ToJson()));
    app.get("/log/get/json/warn", async (req, res) => res.json(logServe.logsList.WARN.ToJson()));
    app.get("/log/get/json/*", async (req, res) => res.json(logServe.GetLogsBundle(["ALL"]).ToJson()));
+
    app.get("/*", async (req, res) => res.send(`
         <div style="font-family: monospace">
             <p>LOG SERVE</p>
             <hr/>
-            <a href="/log/get/json/" style="color: black">ALL</a>
             <hr/>
-            <a href="/log/get/json/info" style="color: black">INFO</a>
-            <a href="/log/get/json/debug" style="color: black">DEBUG</a>
-            <a href="/log/get/json/error" style="color: black">ERROR</a>
-            <a href="/log/get/json/fatal" style="color: black">FATAL</a>
-            <a href="/log/get/json/trace" style="color: black">TRACE</a>
-            <a href="/log/get/json/warn" style="color: black">WARN</a>
+            <p style="background: black; color: white">HTML</p>
+            <p><a href="/log/get/html/" style="color: black">ALL</a></p>
+            <p><a href="/log/get/html/info" style="color: black">INFO</a></p>
+            <p><a href="/log/get/html/debug" style="color: black">DEBUG</a></p>
+            <p><a href="/log/get/html/error" style="color: black">ERROR</a></p>
+            <p><a href="/log/get/html/fatal" style="color: black">FATAL</a></p>
+            <p><a href="/log/get/html/trace" style="color: black">TRACE</a></p>
+            <p><a href="/log/get/html/warn" style="color: black">WARN</a></p>
+            <hr/>
+            <p style="background: black; color: white">JSON</p>
+            <p><a href="/log/get/json/" style="color: black">ALL</a></p>
+            <p><a href="/log/get/json/info" style="color: black">INFO</a></p>
+            <p><a href="/log/get/json/debug" style="color: black">DEBUG</a></p>
+            <p><a href="/log/get/json/error" style="color: black">ERROR</a></p>
+            <p><a href="/log/get/json/fatal" style="color: black">FATAL</a></p>
+            <p><a href="/log/get/json/trace" style="color: black">TRACE</a></p>
+            <p><a href="/log/get/json/warn" style="color: black">WARN</a></p>
         </div>
    `));
 
