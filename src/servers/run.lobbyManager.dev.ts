@@ -2,8 +2,8 @@ import logInfo from "./utils/consoleLogs/logInfo";
 import GlobalLobbyManager from "./globalLobbyManager/globalLobbyManager";
 import WebSocket from "ws";
 import GlobalLobby from "./globalLobbyManager/globalLobby";
-import DB_Lobbies from "./models/lobby/db_lobbies";
-import wrappedPrisma from "./models/wrappedPrisma";
+import DB_Lobbies from "../../db/queries/DbQueries.lobby";
+import {prisma} from "../../generated/prisma-client";
 
 
 export default class GlobalLobbyManagerServerDev {
@@ -18,8 +18,8 @@ export default class GlobalLobbyManagerServerDev {
          logInfo("Mode: LOBBY MANAGER");
          logInfo(`Server version: ${process.env.npm_package_version}`);
 
-         await wrappedPrisma.deleteManyRooms();
-         await wrappedPrisma.deleteManyLobbies();
+         await prisma.deleteManyRooms();
+         await prisma.deleteManyLobbies();
 
          this.lobbyManager = new GlobalLobbyManager(
             new WebSocket.Server({

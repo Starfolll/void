@@ -2,8 +2,14 @@ import fetch from "node-fetch";
 import {logType} from "./components/log";
 import {logServerWSConnectionActions} from "./components/logServe";
 import WebSocket from "ws";
+import isReachable from "is-reachable";
 
-export default class LogServerRequest {
+
+export default class LoggerServerApi {
+   public static async IsServerAlive(): Promise<boolean> {
+      return await isReachable(`http://localhost:8888`);
+   }
+
    public static async AddLog(logType: logType, data: string): Promise<void> {
       if (logType !== "ALL") {
          await fetch(`http://localhost:8888/log/add/${logType.toLowerCase()}`, {

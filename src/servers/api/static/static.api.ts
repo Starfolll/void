@@ -1,15 +1,15 @@
 import * as core from "express-serve-static-core";
 import Joi from "joi";
-import DB_Users from "../../models/user/db_users";
 import {staticApiRequestValidationSchemas} from "./static.api.reqValidationsSchemas";
 import emailTransporter from "../../mailer/transporter.account";
 import transporterEmails from "../../mailer/transporter.emails";
 import cryptoRandomString from "crypto-random-string";
-import User from "../../models/user/user";
+import DbObjectUser from "../../../../db/objects/DbObject.user";
 import dotenv from "dotenv";
 import {UploadedFile} from "express-fileupload";
 import uniqid from "uniqid"
 import fs from "fs";
+import DB_Users from "../../../../db/queries/DbQueries.user";
 
 
 dotenv.config();
@@ -51,7 +51,7 @@ export default class StaticApi {
 
          res.status(200).json({
             "verified": true,
-            "userData": await (new User(userData)).GetUserOnLoginData()
+            "userData": await (new DbObjectUser(userData)).GetUserOnLoginData()
          })
       });
    }
@@ -131,7 +131,7 @@ export default class StaticApi {
          });
 
 
-         const userToInvite = new User(userToInviteData);
+         const userToInvite = new DbObjectUser(userToInviteData);
          if ((await userToInvite.GetUserFriends()).some(u => u.id === body.id)) return res.status(400).json({
             "sent": false,
             "error": "you are already friends with that user"
@@ -142,7 +142,7 @@ export default class StaticApi {
             "error": "invite list full"
          });
 
-         const user = new User(userData);
+         const user = new DbObjectUser(userData);
          if ((await user.GetUserInvites()).some(i => i.id === userToInvite.id)) return res.status(400).json({
             "sent": false,
             "error": "you already have invite from this user"
@@ -176,7 +176,7 @@ export default class StaticApi {
             "error": "invalid data"
          });
 
-         const user = new User(userData);
+         const user = new DbObjectUser(userData);
          const userInvites = await user.GetUserInvites();
          if (userInvites.length >= this.usersFriendsLimit || !userInvites.some(f => f.id === body.friendId)) return res.status(400).json({
             "accepted": false,
@@ -211,7 +211,7 @@ export default class StaticApi {
             "error": "invalid data"
          });
 
-         const user = new User(userData);
+         const user = new DbObjectUser(userData);
          const userInvites = await user.GetUserInvites();
          if (!userInvites.some(i => i.id === body.inviteUserId)) return res.status(400).json({
             "rejected": false,
@@ -246,7 +246,7 @@ export default class StaticApi {
             "error": "invalid data"
          });
 
-         const user = new User(userData);
+         const user = new DbObjectUser(userData);
          const userFriends = await user.GetUserFriends();
          if (!userFriends.some(f => f.id === body.friendId)) return res.status(400).json({
             "deleted": false,
@@ -281,7 +281,7 @@ export default class StaticApi {
             "error": "invalid data"
          });
 
-         const user = new User(userData);
+         const user = new DbObjectUser(userData);
          await user.ChangeUserPublicName(body.publicName);
 
          res.status(200).json({
@@ -388,7 +388,7 @@ export default class StaticApi {
             "error": "wrong credentials or user unverified",
          });
 
-         const user = new User(userData);
+         const user = new DbObjectUser(userData);
          const hash = uniqid(`${Math.random() * 1000000000 | 0}`);
 
          await user.SetUserAvatarUrlHash(hash);

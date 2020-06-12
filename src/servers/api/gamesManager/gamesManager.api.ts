@@ -1,4 +1,4 @@
-import {tableData} from "../../models/table/table";
+import {tableData} from "../../../../db/objects/DbObject.table";
 import {Decks} from "../../gamesManager/gameTableManager/deck/decks";
 import {HeroesStacks} from "../../gamesManager/gameTableManager/heroesStacks/heroesStacks";
 import {GamesManager} from "../../gamesManager/gamesManager";

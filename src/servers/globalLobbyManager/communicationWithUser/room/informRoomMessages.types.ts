@@ -1,6 +1,6 @@
 import {chatMessageInfo} from "../../../utils/chat/chatMessage";
-import {userPublicData} from "../../../models/user/user";
-import {extendedRoomData, roomData} from "../../../models/room/room";
+import {userPublicData} from "../../../../../db/objects/DbObject.user";
+import {extendedRoomData, roomData} from "../../../../../db/objects/DbObject.room";
 
 export type newRoomChatMessage = {
     messageType: string;

@@ -4,8 +4,8 @@ import * as core from "express-serve-static-core";
 import logInfo from "./utils/consoleLogs/logInfo";
 
 import {GamesManager} from "./gamesManager/gamesManager";
-import wrappedPrisma from "./models/wrappedPrisma";
 import GamesManagerApi from "./api/gamesManager/gamesManager.api";
+import {prisma} from "../../generated/prisma-client";
 
 
 export default class GameManagerServerDev extends GamesManagerApi {
@@ -22,7 +22,7 @@ export default class GameManagerServerDev extends GamesManagerApi {
          logInfo("Mode: GAME MANAGER");
          logInfo(`Server version: ${process.env.npm_package_version}`);
 
-         await wrappedPrisma.deleteManyTables();
+         await prisma.deleteManyTables();
 
          this.privateApiPort = +process.env.PRIVATE_GAME_API_PORT!;
          this.publicGameWSPort = +process.env.PUBLIC_GAME_WS_PORT!;

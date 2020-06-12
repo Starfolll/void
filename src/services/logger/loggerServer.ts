@@ -2,18 +2,18 @@ import Joi from "joi";
 import express from "express";
 import {logType} from "./components/log";
 import LogServe from "./components/logServe";
+import Env from "../../../env/env";
 
 
 // http://www.tutorialspoint.com/log4j/log4j_logging_levels.htm
 
 
 const app = express();
-const serverPort = 8888;
 
-const logServe = new LogServe({wsPort: 8889});
+const logServe = new LogServe({wsPort: Env.loggerServerWsPort});
 const bodyValidationSchema = Joi.object({data: Joi.string().required()});
 
-const main = async () => {
+(async () => {
    app.use(express.json());
    app.use(express.static(__dirname + "/web/dist"));
 
@@ -58,7 +58,6 @@ const main = async () => {
         </div>
    `));
 
-
    const addLog = (req: any, res: any, logType: logType) => {
       const body: { data: string } = req.body;
 
@@ -74,10 +73,7 @@ const main = async () => {
    app.post("/log/add/trace", async (req: any, res: any) => addLog(req, res, "TRACE"));
    app.post("/log/add/fatal", async (req: any, res: any) => addLog(req, res, "FATAL"));
 
-
-   app.listen(serverPort, () => {
+   app.listen(Env.loggerServerPort, () => {
       logServe.AddLog("INFO", "Log server is up and running");
    });
-};
-
-main().then();
+})();

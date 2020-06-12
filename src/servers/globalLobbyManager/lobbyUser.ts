@@ -1,16 +1,14 @@
 import WebSocket from "ws";
 
-import User, {userData, userPublicData} from "../models/user/user";
+import DbObjectUser, {userData, userPublicData} from "../../../db/objects/DbObject.user";
 import GetGlobalLobbyMessage from "./communicationWithUser/globalLobby/informGlobalLobbyMessages";
-import {extendedLobbyData} from "../models/lobby/lobby";
+import {extendedLobbyData} from "../../../db/objects/DbObject.lobby";
 import {chatMessageInfo} from "../utils/chat/chatMessage";
-import {extendedRoomData} from "../models/room/room";
+import {extendedRoomData} from "../../../db/objects/DbObject.room";
 import GetRoomMessage from "./communicationWithUser/room/informRoomMessages";
-import GlobalLobbyManager from "./globalLobbyManager";
-import user from "../models/user/user";
 
 
-export default class LobbyUser extends User {
+export default class LobbyUser extends DbObjectUser {
    private readonly connection: WebSocket;
 
    private readonly eventListeners: { [eventClass: string]: { [eventName: string]: { method: string, eventFunction: () => void } } } = {};

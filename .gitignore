@@ -2,6 +2,9 @@
 /.idea
 /generated
 /**/node_modules
+tsconfig.tsbuildinfo
+**.js
+**.d.ts
 
 .env
 .tsbuildinfo

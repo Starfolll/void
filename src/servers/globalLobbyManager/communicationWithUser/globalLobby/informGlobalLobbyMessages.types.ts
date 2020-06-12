@@ -1,6 +1,6 @@
-import {extendedLobbyData} from "../../../models/lobby/lobby";
+import {extendedLobbyData} from "../../../../../db/objects/DbObject.lobby";
 import {chatMessageInfo} from "../../../utils/chat/chatMessage";
-import {extendedRoomData} from "../../../models/room/room";
+import {extendedRoomData} from "../../../../../db/objects/DbObject.room";
 
 export type redirectToGameTable = {
    messageType: string;

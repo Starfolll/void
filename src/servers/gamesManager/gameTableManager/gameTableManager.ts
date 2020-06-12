@@ -5,7 +5,7 @@ import {Player} from "../players/player";
 import {IsGameMessageValid} from "../players/communicationWithPlayer/responseGameMessages";
 import {Card} from "./deck/card";
 import {playerTurnResponse} from "../players/communicationWithPlayer/responseGameMessages.types";
-import {tableData} from "../../models/table/table";
+import {tableData} from "../../../../db/objects/DbObject.table";
 
 
 export class GameTableManager extends GameTable {

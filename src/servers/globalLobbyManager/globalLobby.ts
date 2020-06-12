@@ -1,14 +1,14 @@
-import {userUniqueData} from "../models/user/user";
+import {userUniqueData} from "../../../db/objects/DbObject.user";
 import WebSocket from "ws";
-import Lobby, {lobbyData} from "../models/lobby/lobby";
+import DbObjectLobby, {lobbyData} from "../../../db/objects/DbObject.lobby";
 import LobbyUser from "./lobbyUser";
 import IsLobbyMessageValid from "./communicationWithUser/globalLobby/responseGlobalLobbyMessages";
 import {userGlobalLobbyResponse} from "./communicationWithUser/globalLobby/responseGlobalLobbyMessages.types";
-import Room from "../models/room/room";
+import DbObjectRoom from "../../../db/objects/DbObject.room";
 import logError from "../utils/consoleLogs/logError";
 
 
-export default class GlobalLobby extends Lobby {
+export default class GlobalLobby extends DbObjectLobby {
    constructor(data: lobbyData, maxSavedMessages: number) {
       super(data, maxSavedMessages);
    }
@@ -108,7 +108,7 @@ export default class GlobalLobby extends Lobby {
       if (!validMessage) return;
 
       this.CreateNewPrivateRoom(user)
-         .then((room: Room | undefined) => {
+         .then((room: DbObjectRoom | undefined) => {
             console.log(room?.GetRoomData());
             if (!!room) user.InformAboutPrivateRoomCreated(room.GetExtendedRoomData());
          })

@@ -42,7 +42,7 @@ export class LogList {
 
    public ToHTML(limit?: number): string {
       return `
-         <div>
+         <div style="font-family: monospace">
             <div style="position:sticky;top: 0;left: 0">
                <p>${this.listType}</p><hr>
             </div>

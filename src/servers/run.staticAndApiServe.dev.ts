@@ -8,7 +8,7 @@ import StaticApi from "./api/static/static.api";
 import * as core from "express-serve-static-core";
 import dirPath from "./router/dirPaths";
 import fileUpload from "express-fileupload";
-import logServerRequest from "../services/logger/logServerRequest";
+import logServerRequest from "../services/logger/loggerServerApi";
 
 
 export default class StaticAndApiServeServerDev extends StaticApi {

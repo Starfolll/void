@@ -8,9 +8,9 @@ import {
    redirectToGameTable,
    redirectToRoom
 } from "./informGlobalLobbyMessages.types";
-import {extendedLobbyData} from "../../../models/lobby/lobby";
+import {extendedLobbyData} from "../../../../../db/objects/DbObject.lobby";
 import {chatMessageInfo} from "../../../utils/chat/chatMessage";
-import {extendedRoomData} from "../../../models/room/room";
+import {extendedRoomData} from "../../../../../db/objects/DbObject.room";
 
 export default class GetGlobalLobbyMessage {
    public static RedirectToGameTable(tableId: string): redirectToGameTable {

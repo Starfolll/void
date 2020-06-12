@@ -52,9 +52,10 @@ export default class LogServe {
       this.wsPort = props.wsPort;
 
       const wsServer = new WebSocket.Server({port: this.wsPort});
-      wsServer.on("connection", (connection: WebSocket) => {
+      wsServer.on("connection", (connection: WebSocket, req) => {
          const connectionUniqId = uniqId(`${Math.random() * 1000000000 | 0}`);
          this.logConnections[connectionUniqId] = new LogConnection(connection);
+         this.AddLog("TRACE", `new log connection: ${req.connection.remoteAddress}`);
 
          connection.on("message", async (event: string) => {
             const data: logServerWSConnectionActions = JSON.parse(event);

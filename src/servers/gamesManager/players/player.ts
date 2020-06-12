@@ -6,7 +6,7 @@ import {GetGameMessage} from "./communicationWithPlayer/informGameMassages";
 import {tableInfoWithPlayers} from "./players";
 import {heroDebuffsTypes} from "../gameTableManager/heroesStacks/heroDebuffsTypes";
 import {heroAbilityTypes} from "../gameTableManager/heroesStacks/heroAbilityTypes";
-import User, {userData, userPublicData} from "../../models/user/user";
+import DbObjectUser, {userData, userPublicData} from "../../../../db/objects/DbObject.user";
 import {chatMessageInfo} from "../../utils/chat/chatMessage";
 
 
@@ -52,7 +52,7 @@ export type playerInfo = {
    cardsAmountInHand: number;
 };
 
-export class Player extends User {
+export class Player extends DbObjectUser {
    private isPlayerDisconnected: boolean = false;
    private connection: WebSocket;
 

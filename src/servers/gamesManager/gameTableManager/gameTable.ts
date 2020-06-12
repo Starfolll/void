@@ -6,7 +6,7 @@ import {HeroesStack} from "./heroesStacks/heroesStack";
 import {Card} from "./deck/card";
 import {initialHeroTurnOptions} from "../players/communicationWithPlayer/responseGameMessages.types";
 import Chat from "../../utils/chat/chat";
-import Table, {tableData} from "../../models/table/table";
+import DbObjectTable, {tableData} from "../../../../db/objects/DbObject.table";
 import ChatMessage, {chatMessageInfo} from "../../utils/chat/chatMessage";
 
 type turnsType =
@@ -31,7 +31,7 @@ export type tableInfo = {
    chatMessages: Array<chatMessageInfo>;
 };
 
-export class GameTable extends Table {
+export class GameTable extends DbObjectTable {
    private currentTurnType: turnsType = "waitingForPlayers";
 
    protected isGameStarted: boolean = false;

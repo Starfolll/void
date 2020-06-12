@@ -1,4 +1,4 @@
-import {tableData} from "../../models/table/table";
+import {tableData} from "../../../../db/objects/DbObject.table";
 import dotenv from "dotenv";
 
 

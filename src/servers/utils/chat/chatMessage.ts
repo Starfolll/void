@@ -1,4 +1,4 @@
-import {userPublicData} from "../../models/user/user";
+import {userPublicData} from "../../../../db/objects/DbObject.user";
 
 export type chatMessageInfo = {
     user: userPublicData;
