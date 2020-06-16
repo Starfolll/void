@@ -82,8 +82,6 @@
   "exclude": [
     "./dist",
     "./src/web",
-    "./src/electron",
-    "./src/servers/",
-    "!./src/servers/apiManager"
+    "./src/electron"
   ]
 }

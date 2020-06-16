@@ -16,10 +16,18 @@ import Env from "../../../env/env";
          user: {
             routes: {
                apiPath, clusterPath: clustersPath.user, routesConfigs: {
-                  login: {path: "login"}
+                  login: {path: "/login"},
+                  signUp: {path: "/signUp"}
                }
             },
-            configs: {}
+            configs: {
+               signUp: {
+                  passwordEncryption: {
+                     salt: 10,
+                     secret: "api-secret"
+                  }
+               }
+            }
          }
       }
    });

@@ -53,8 +53,10 @@
     "ws": "^7.3.0"
   },
   "dependencies": {
+    "@types/express-validator": "^3.0.0",
     "@types/helmet": "0.0.47",
     "@types/joi": "^14.3.4",
+    "express-validator": "^6.5.0",
     "helmet": "^3.22.0",
     "joi": "^14.3.1"
   }

@@ -1,6 +1,6 @@
-import ApiClusterUser, {ApiClusterUserConfigs, ApiClusterUserRoutes} from "./routes/apiCluster.user";
+import RoutesApiClusterUser, {ApiClusterUserConfigs, ApiClusterUserRoutes} from "./routes/routes.apiCluster.user";
 import express, {Express} from "express";
-import {ApiRoutesConfigs} from "./routes/apiCluster";
+import {ApiRoutesConfigs} from "./routes/routes.apiCluster";
 import LoggerServerApi from "../../services/logger/loggerServerApi";
 
 
@@ -17,14 +17,14 @@ export default class ManagerApiRoutes {
    private readonly configs: ManagerApiRoutesConfigs;
 
 
-   private readonly ApiUser: ApiClusterUser;
+   private readonly ApiUser: RoutesApiClusterUser;
 
 
    constructor(configs: ManagerApiRoutesConfigs) {
       this.app = express();
       this.configs = configs;
 
-      this.ApiUser = new ApiClusterUser(this.configs.user.routes, this.configs.user.configs);
+      this.ApiUser = new RoutesApiClusterUser(this.configs.user.routes, this.configs.user.configs);
 
       this.app.on("mount", async () => {
          await LoggerServerApi.AddLog("INFO", `Manager api routes is up and running`);

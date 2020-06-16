@@ -17,16 +17,16 @@ export default class ManagerApi {
    private readonly app: Express;
    private readonly managerApiConfigs: ManagerApiConfigs;
 
-   private readonly routes: ManagerApiRoutes;
    private readonly params: ManagerApiParams;
+   private readonly routes: ManagerApiRoutes;
 
 
    constructor(configs: ManagerApiConfigs) {
       this.app = express();
       this.managerApiConfigs = configs;
 
-      this.routes = new ManagerApiRoutes(configs.routes);
       this.params = new ManagerApiParams(configs.params);
+      this.routes = new ManagerApiRoutes(configs.routes);
    }
 
 
@@ -50,9 +50,5 @@ export default class ManagerApi {
       this.app.listen(this.managerApiConfigs.port, () => LoggerServerApi.AddLog("INFO",
          `API server is listening on port ${this.managerApiConfigs.port}`
       ));
-
-      this.app.on("close", () => {
-         console.log("adwadw");
-      });
    }
 }

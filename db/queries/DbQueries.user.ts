@@ -1,4 +1,4 @@
-import {prisma, Table, UserCreateInput, UserWhereUniqueInput} from "../../generated/prisma-client";
+import {prisma, User, UserCreateInput, UserUpdateInput, UserWhereUniqueInput} from "../../generated/prisma-client";
 
 
 export default class DbQueriesUser {
@@ -6,7 +6,7 @@ export default class DbQueriesUser {
       return await prisma.$exists.user(uniqueInput);
    }
 
-   public static async GetData(uniqueInput: UserWhereUniqueInput): Promise<Table | null> {
+   public static async GetData(uniqueInput: UserWhereUniqueInput): Promise<User | null> {
       return prisma.user(uniqueInput);
    }
 
@@ -16,5 +16,9 @@ export default class DbQueriesUser {
 
    public static async Delete(uniqueInput: UserWhereUniqueInput): Promise<void> {
       await prisma.deleteUser(uniqueInput);
+   }
+
+   public static async Update(uniqueInput: UserWhereUniqueInput, input: UserUpdateInput): Promise<void> {
+      await prisma.updateUser({data: input, where: uniqueInput});
    }
 }

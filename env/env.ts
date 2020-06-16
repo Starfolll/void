@@ -4,7 +4,7 @@ type deploymentEnv = "prod" | "dev";
 export default class Env {
    public static readonly deployment: deploymentEnv = "dev";
 
-   public static readonly managers: {
+   public static readonly managers = {
       apiManager: {
          apiPort: 8001
       }

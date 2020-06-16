@@ -1,6 +1,6 @@
 type User {
     id: ID! @id
-    token: String!
+    token: String! @unique
 
     isVerified: Boolean! @default(value: false)
     verificationLink: String
@@ -17,7 +17,7 @@ type User {
 
     publicName: String!
     avatarUrlHash: String
-    changPasswordHash: String
+    changePasswordHash: String
 
     friends: [User!]! @relation(name: "UsersFriends")
     friendInvites: [User!]! @relation(name: "UsersFriendInvites")

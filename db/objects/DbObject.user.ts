@@ -1,4 +1,24 @@
 import {DateTimeOutput, Float, ID_Output, Int, User} from "../../generated/prisma-client";
+import bcrypt from "bcrypt";
+
+
+export interface UserPrivateData {
+   readonly id: ID_Output;
+   readonly name: string;
+   readonly email: string;
+
+   readonly publicName: string;
+   readonly token: string;
+
+   readonly avatarUrlHash?: string;
+
+   readonly xp: Float;
+   readonly gold: Float;
+   readonly lvl: Int;
+
+   readonly createdAt: DateTimeOutput;
+}
+
 
 export default class DbObjectUser implements User {
    public readonly id: ID_Output;
@@ -12,7 +32,7 @@ export default class DbObjectUser implements User {
    public readonly isVerified: boolean;
 
    public readonly avatarUrlHash?: string;
-   public readonly changPasswordHash?: string;
+   public readonly changePasswordHash?: string;
    public readonly verificationLink?: string;
 
    public readonly xp: Float;
@@ -35,7 +55,7 @@ export default class DbObjectUser implements User {
       this.isVerified = userData.isVerified;
 
       this.avatarUrlHash = userData.avatarUrlHash;
-      this.changPasswordHash = userData.changPasswordHash;
+      this.changePasswordHash = userData.changePasswordHash;
       this.verificationLink = userData.verificationLink;
 
       this.xp = userData.xp;
@@ -44,5 +64,30 @@ export default class DbObjectUser implements User {
 
       this.updatedAt = userData.updatedAt;
       this.createdAt = userData.createdAt;
+   }
+
+
+   public static IsPasswordValid(password: string, hash: string) {
+      return bcrypt.compareSync(password, hash);
+   }
+
+
+   public static GetPrivateData(userData: User): UserPrivateData {
+      return {
+         id: userData.id,
+         name: userData.name,
+         email: userData.email,
+
+         publicName: userData.publicName,
+         token: userData.token,
+
+         avatarUrlHash: userData.avatarUrlHash,
+
+         xp: userData.xp,
+         gold: userData.gold,
+         lvl: userData.lvl,
+
+         createdAt: userData.createdAt,
+      }
    }
 }
