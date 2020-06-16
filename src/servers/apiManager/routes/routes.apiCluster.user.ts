@@ -7,6 +7,7 @@ import uniqId from "uniqid";
 import randomString from "crypto-random-string";
 import {body, validationResult} from "express-validator";
 import bcrypt from "bcrypt";
+import Mailer from "../../../services/mailer/mailer";
 
 
 export type ApiClusterUserRoutes = {
@@ -204,7 +205,7 @@ export default class RoutesApiClusterUser extends RoutesApiCluster<ApiClusterUse
          const changePasswordHash = this.GetChangePasswordHash(userData!.id);
          await DbQueriesUser.Update({email: userEmail}, {changePasswordHash});
 
-         // TODO : send email
+         Mailer.emails.mailVerification.Send().then();
 
          await this.Response(res, {
             responseName: "API_RESPONSE_USER_CHANGE_PASSWORD_REQUEST",

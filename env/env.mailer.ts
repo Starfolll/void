@@ -1,4 +1,6 @@
 import Env from "./env";
+import {EmailMailVerificationConfigs} from "../src/services/mailer/emails/emailMailVerification";
+import EnvPath from "./envPath";
 
 type mailerAccount = {
    user: string;
@@ -11,7 +13,7 @@ export default class EnvMailer {
    public static readonly port: number = 587;
    public static readonly secure: boolean = false;
 
-   
+
    public static readonly isProd: boolean = Env.deployment === "prod";
 
 
@@ -23,5 +25,14 @@ export default class EnvMailer {
    public static readonly prodAccount: mailerAccount = {
       user: "???",
       pass: "???"
+   }
+
+
+   public static readonly emailsConfigs: {
+      mailVerification: EmailMailVerificationConfigs
+   } = {
+      mailVerification: {
+         htmlPath: EnvPath.mailsHtmlTemplatesFiles.mailVerification
+      }
    }
 }
