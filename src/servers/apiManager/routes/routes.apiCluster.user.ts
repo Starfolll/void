@@ -13,6 +13,7 @@ import Mailer from "../../../services/mailer/mailer";
 export type ApiClusterUserRoutes = {
    login: ApiRouteConfigs;
    signUp: ApiRouteConfigs;
+   verifyEmail: ApiRouteConfigs;
 
    changePasswordRequest: ApiRouteConfigs;
    changePassword: ApiRouteConfigs;
@@ -89,18 +90,21 @@ export default class RoutesApiClusterUser extends RoutesApiCluster<ApiClusterUse
       })}`;
    }
 
-   private GetEmailVerificationUrl(userId: string): string {
-      return `${userId}/${randomString({
+   private GetEmailVerificationUrl(userId: string, hash?: string): string {
+      const getHash = (h: string) => `${userId}/${h}`;
+
+      if (!!hash) return getHash(hash);
+      else return getHash(randomString({
          length: this.configs.signUp.verificationLinkLength,
          type: "url-safe"
-      })}`
+      }));
    }
 
    private GetChangePasswordHash(userId: string, hash?: string): string {
-      const getHash = (id: string, h: string) => `${id}/${h}`;
+      const getHash = (h: string) => `${userId}/${h}`;
 
-      if (!!hash) return getHash(userId, hash);
-      else return getHash(userId, `${randomString({
+      if (!!hash) return getHash(hash);
+      else return getHash(`${randomString({
          length: this.configs.changePasswordRequest.hashLength,
          type: "url-safe"
       })}-${uniqId()}`);
@@ -196,7 +200,27 @@ export default class RoutesApiClusterUser extends RoutesApiCluster<ApiClusterUse
    }
 
    private async VerifyEmail() {
+      const path = this.GetPath("verifyEmail")
+         + this.GetParam(ApiParams.userId)
+         + this.GetParam(ApiParams.anyHash);
 
+      this.app.post(path, async (req, res) => {
+         const userId = req.params[ApiParams.userId];
+         const anyHash = req.params[ApiParams.anyHash];
+
+         const userData = await DbQueriesUser.GetData({id: userId});
+
+         if (userData!.verificationLink === this.GetEmailVerificationUrl(userId, anyHash))
+            return await this.Response(res, this.GetErrorResponse(
+               API_RESPONSE_USER_VERIFY_EMAIL,
+               "Something went wrong"
+            ));
+
+         await this.Response(res, {
+            responseName: "API_RESPONSE_USER_VERIFY_EMAIL",
+            response: {} as ApiResponseVerifyEmailData
+         })
+      });
    }
 
    private async ChangePasswordRequest() {
@@ -332,6 +356,11 @@ interface ApiResponseUserSignUpData {
    readonly userPrivateData?: UserPrivateData;
 }
 
+interface ApiResponseVerifyEmailData {
+
+}
+
+
 interface ApiResponseUserPasswordChangePasswordRequestData {
    readonly message: string;
 }
@@ -339,6 +368,7 @@ interface ApiResponseUserPasswordChangePasswordRequestData {
 interface ApiResponseUserChangePasswordData {
    readonly passwordChanged: boolean;
 }
+
 
 interface ApiResponseFriendshipRequestData {
 
@@ -352,11 +382,23 @@ interface ApiResponseAcceptFriendshipRequestData {
 
 }
 
+
+const API_RESPONSE_USER_LOGIN = "API_RESPONSE_USER_LOGIN";
+const API_RESPONSE_USER_SIGN_UP = "API_RESPONSE_USER_SIGN_UP";
+const API_RESPONSE_USER_VERIFY_EMAIL = "API_RESPONSE_USER_VERIFY_EMAIL";
+const API_RESPONSE_USER_CHANGE_PASSWORD_REQUEST = "API_RESPONSE_USER_CHANGE_PASSWORD_REQUEST";
+const API_RESPONSE_USER_CHANGE_PASSWORD = "API_RESPONSE_USER_CHANGE_PASSWORD";
+const API_RESPONSE_USER_FRIENDSHIP_REQUEST = "API_RESPONSE_USER_FRIENDSHIP_REQUEST";
+const API_RESPONSE_USER_REJECT_FRIENDSHIP_REQUEST = "API_RESPONSE_USER_REJECT_FRIENDSHIP_REQUEST";
+const API_RESPONSE_USER_ACCEPT_FRIENDSHIP_REQUEST = "API_RESPONSE_USER_ACCEPT_FRIENDSHIP_REQUEST";
+
+
 type apiResponseUser =
-   ApiResponse<"API_RESPONSE_USER_LOGIN", ApiResponseUserLoginData> |
-   ApiResponse<"API_RESPONSE_USER_SIGN_UP", ApiResponseUserSignUpData> |
-   ApiResponse<"API_RESPONSE_USER_CHANGE_PASSWORD_REQUEST", ApiResponseUserPasswordChangePasswordRequestData> |
-   ApiResponse<"API_RESPONSE_USER_CHANGE_PASSWORD", ApiResponseUserChangePasswordData> |
-   ApiResponse<"API_RESPONSE_USER_FRIENDSHIP_REQUEST", ApiResponseFriendshipRequestData> |
-   ApiResponse<"API_RESPONSE_USER_REJECT_FRIENDSHIP_REQUEST", ApiResponseRejectFriendshipRequestData> |
-   ApiResponse<"API_RESPONSE_USER_ACCEPT_FRIENDSHIP_REQUEST", ApiResponseAcceptFriendshipRequestData>;
+   ApiResponse<typeof API_RESPONSE_USER_LOGIN, ApiResponseUserLoginData> |
+   ApiResponse<typeof API_RESPONSE_USER_SIGN_UP, ApiResponseUserSignUpData> |
+   ApiResponse<typeof API_RESPONSE_USER_VERIFY_EMAIL, ApiResponseVerifyEmailData> |
+   ApiResponse<typeof API_RESPONSE_USER_CHANGE_PASSWORD_REQUEST, ApiResponseUserPasswordChangePasswordRequestData> |
+   ApiResponse<typeof API_RESPONSE_USER_CHANGE_PASSWORD, ApiResponseUserChangePasswordData> |
+   ApiResponse<typeof API_RESPONSE_USER_FRIENDSHIP_REQUEST, ApiResponseFriendshipRequestData> |
+   ApiResponse<typeof API_RESPONSE_USER_REJECT_FRIENDSHIP_REQUEST, ApiResponseRejectFriendshipRequestData> |
+   ApiResponse<typeof API_RESPONSE_USER_ACCEPT_FRIENDSHIP_REQUEST, ApiResponseAcceptFriendshipRequestData>;
