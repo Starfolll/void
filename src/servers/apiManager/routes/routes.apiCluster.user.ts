@@ -13,8 +13,13 @@ import Mailer from "../../../services/mailer/mailer";
 export type ApiClusterUserRoutes = {
    login: ApiRouteConfigs;
    signUp: ApiRouteConfigs;
+
    changePasswordRequest: ApiRouteConfigs;
    changePassword: ApiRouteConfigs;
+
+   sendFriendshipRequest: ApiRouteConfigs;
+   rejectFriendshipRequest: ApiRouteConfigs;
+   acceptFriendshipRequest: ApiRouteConfigs;
 }
 
 export type ApiClusterUserConfigs = {
@@ -62,7 +67,7 @@ export default class RoutesApiClusterUser extends RoutesApiCluster<ApiClusterUse
 
       await this.RejectFriendshipRequest();
       await this.AcceptFriendshipRequest();
-      await this.SendFriendshipRequest();
+      await this.FriendshipRequest();
    }
 
 
@@ -252,16 +257,67 @@ export default class RoutesApiClusterUser extends RoutesApiCluster<ApiClusterUse
    }
 
 
-   private async SendFriendshipRequest() {
+   private async FriendshipRequest() {
+      const path = this.GetPath("sendFriendshipRequest")
+         + this.GetParam(ApiParams.token)
+         + this.GetParam(ApiParams.userId);
 
+      this.app.post(path, async (req, res) => {
+         const userToken = req.params[ApiParams.token];
+         const friendId = req.params[ApiParams.userId];
+
+         await DbQueriesUser.Update({id: friendId}, {friendInvites: {connect: {token: userToken}}});
+
+         await this.Response(res, {
+            responseName: "API_RESPONSE_USER_FRIENDSHIP_REQUEST",
+            response: {
+               data: {} as ApiResponseFriendshipRequestData
+            }
+         });
+      });
    }
 
    private async RejectFriendshipRequest() {
+      const path = this.GetPath("rejectFriendshipRequest")
+         + this.GetParam(ApiParams.token)
+         + this.GetParam(ApiParams.userId);
 
+      this.app.post(path, async (req, res) => {
+         const userToken = req.params[ApiParams.token];
+         const friendId = req.params[ApiParams.userId];
+
+         await DbQueriesUser.Update({id: friendId}, {friendInvites: {disconnect: {token: userToken}}});
+
+         await this.Response(res, {
+            responseName: "API_RESPONSE_USER_REJECT_FRIENDSHIP_REQUEST",
+            response: {
+               data: {} as ApiResponseRejectFriendshipRequestData
+            }
+         });
+      });
    }
 
    private async AcceptFriendshipRequest() {
+      const path = this.GetPath("acceptFriendshipRequest")
+         + this.GetParam(ApiParams.token)
+         + this.GetParam(ApiParams.userId);
 
+      this.app.post(path, async (req, res) => {
+         const userToken = req.params[ApiParams.token];
+         const friendId = req.params[ApiParams.userId];
+
+         await DbQueriesUser.Update({id: friendId}, {friendInvites: {disconnect: {token: userToken}}});
+
+         await DbQueriesUser.Update({id: friendId}, {friends: {connect: {token: userToken}}});
+         await DbQueriesUser.Update({token: userToken}, {friends: {connect: {id: friendId}}});
+
+         await this.Response(res, {
+            responseName: "API_RESPONSE_USER_ACCEPT_FRIENDSHIP_REQUEST",
+            response: {
+               data: {} as ApiResponseAcceptFriendshipRequestData
+            }
+         });
+      });
    }
 }
 
@@ -284,8 +340,23 @@ interface ApiResponseUserChangePasswordData {
    readonly passwordChanged: boolean;
 }
 
+interface ApiResponseFriendshipRequestData {
+
+}
+
+interface ApiResponseRejectFriendshipRequestData {
+
+}
+
+interface ApiResponseAcceptFriendshipRequestData {
+
+}
+
 type apiResponseUser =
    ApiResponse<"API_RESPONSE_USER_LOGIN", ApiResponseUserLoginData> |
    ApiResponse<"API_RESPONSE_USER_SIGN_UP", ApiResponseUserSignUpData> |
    ApiResponse<"API_RESPONSE_USER_CHANGE_PASSWORD_REQUEST", ApiResponseUserPasswordChangePasswordRequestData> |
-   ApiResponse<"API_RESPONSE_USER_CHANGE_PASSWORD", ApiResponseUserChangePasswordData>
+   ApiResponse<"API_RESPONSE_USER_CHANGE_PASSWORD", ApiResponseUserChangePasswordData> |
+   ApiResponse<"API_RESPONSE_USER_FRIENDSHIP_REQUEST", ApiResponseFriendshipRequestData> |
+   ApiResponse<"API_RESPONSE_USER_REJECT_FRIENDSHIP_REQUEST", ApiResponseRejectFriendshipRequestData> |
+   ApiResponse<"API_RESPONSE_USER_ACCEPT_FRIENDSHIP_REQUEST", ApiResponseAcceptFriendshipRequestData>;

@@ -11,7 +11,8 @@
     "loggerServer:start": "pm2 start src/services/logger/loggerServer.js --name logS",
     "loggerServer:reload": "pm2 reload logS",
     "loggerServer:delete": "pm2 delete logS",
-    "logs:all": "node src/services/logger/loggerCli.js all"
+    "logs:all": "node src/services/logger/loggerCli.js all",
+    "server:api": "node src/servers/apiManager/server.manager.api.js"
   },
   "engines": {
     "node": ">=12.x.x"

@@ -1,6 +1,6 @@
 import Env from "./env";
 import {EmailMailVerificationConfigs} from "../src/services/mailer/emails/emailMailVerification";
-import EnvPath from "./envPath";
+import EnvPath from "./env.path";
 
 type mailerAccount = {
    user: string;
