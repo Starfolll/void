@@ -3,19 +3,16 @@ import Env from "../../../env/env";
 
 
 (async () => {
-   const apiPath = "/api";
-   const clustersPath = {
-      user: "/user"
-   };
-
    const managerApi = new ManagerApi({
       port: Env.managers.apiManager.apiPort,
-      apiPath: "/api",
+      apiPath: Env.managers.apiManager.apiPath,
       params: {},
       routes: {
          user: {
             routes: {
-               apiPath, clusterPath: clustersPath.user, routesConfigs: {
+               clusterPath: "/user",
+               apiPath: Env.managers.apiManager.apiPath,
+               routesConfigs: {
                   login: {path: "/login"},
                   signUp: {path: "/signUp"},
                   verifyEmail: {path: "/verifyEmail"},
@@ -31,12 +28,12 @@ import Env from "../../../env/env";
                   unmatchedValuesMessage: "Invalid password or email"
                },
                changePasswordRequest: {
-                  hashLength: 120,
+                  hashLength: Env.managers.apiManager.commonTokenLength,
                   message: "Change password request sent"
                },
                signUp: {
-                  tokenLength: 120,
-                  verificationLinkLength: 120,
+                  tokenLength: Env.managers.apiManager.commonTokenLength,
+                  verificationLinkLength: Env.managers.apiManager.commonTokenLength,
                   automaticVerifyUserEmails: false,
                   passwordEncryption: {
                      salt: 10,
@@ -54,5 +51,9 @@ import Env from "../../../env/env";
    });
 
    await managerApi.Setup();
+
+   await managerApi.UseHelmet();
+   await managerApi.UsePathLogger();
+
    await managerApi.Boot();
 })();

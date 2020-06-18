@@ -6,8 +6,10 @@ export default class Env {
 
    public static readonly managers = {
       apiManager: {
-         apiPort: 8001
-      }
+         apiPort: 8001,
+         apiPath: "/api",
+         commonTokenLength: 120
+      },
    };
 
    public static readonly loggerServerPort = 8888;

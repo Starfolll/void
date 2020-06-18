@@ -38,8 +38,19 @@ export default class ManagerApi {
    }
 
    private async SetupUtils() {
-      await this.app.use(helmet());
       await this.app.use(express.json());
+   }
+
+
+   public async UseHelmet() {
+      await this.app.use(helmet());
+   }
+
+   public async UsePathLogger() {
+      await this.app.use(async (req, res, next) => {
+         await LoggerServerApi.AddLog("TRACE", `${req.ip} | ${req.originalUrl}`);
+         next();
+      });
    }
 
 
