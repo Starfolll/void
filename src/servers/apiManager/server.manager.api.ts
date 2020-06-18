@@ -17,14 +17,35 @@ import Env from "../../../env/env";
             routes: {
                apiPath, clusterPath: clustersPath.user, routesConfigs: {
                   login: {path: "/login"},
-                  signUp: {path: "/signUp"}
+                  signUp: {path: "/signUp"},
+                  verifyEmail: {path: "/verifyEmail"},
+                  acceptFriendshipRequest: {path: "/acceptFriendshipRequest"},
+                  rejectFriendshipRequest: {path: "/rejectFriendshipRequest"},
+                  sendFriendshipRequest: {path: "/sendFriendshipRequest"},
+                  changePassword: {path: "/changePassword"},
+                  changePasswordRequest: {path: "/changePasswordRequest"}
                }
             },
             configs: {
+               login: {
+                  unmatchedValuesMessage: "Invalid password or email"
+               },
+               changePasswordRequest: {
+                  hashLength: 120,
+                  message: "Change password request sent"
+               },
                signUp: {
+                  tokenLength: 120,
+                  verificationLinkLength: 120,
+                  automaticVerifyUserEmails: false,
                   passwordEncryption: {
                      salt: 10,
                      secret: "api-secret"
+                  },
+                  userStarterPack: {
+                     gold: 10,
+                     xp: 10,
+                     lvl: 10
                   }
                }
             }
