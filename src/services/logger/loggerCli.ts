@@ -1,31 +1,43 @@
-import {allLogsType, Log, logType} from "./components/log";
+import {Log, LogType} from "./components/log";
 import LoggerServerApi from "./loggerServerApi";
 import WebSocket from "ws";
 import LogWrapper from "./components/logWrapper";
-import {logList} from "./components/logList";
+import {LogListData} from "./components/logList";
+import Env from "../../../env/env";
+import chalk from "chalk";
 
 
 (async () => {
-   if (!await LoggerServerApi.IsServerAlive()) return;
+   if (!await LoggerServerApi.IsServerAlive()) return console.error("LOG SERVER IS NOT ALIVE");
+   else {
+      console.log(chalk.greenBright(` [ LOG SERVER IS ALIVE ] `));
+      console.log(` | Logger server id : ${await LoggerServerApi.GetServerId()}`);
+      console.log(` | To see more go to http://localhost:${Env.logger.ports.loggerServerPort}`);
+   }
 
-   const wsConnection = new WebSocket("ws://localhost:8889/");
-   const args = new Set(process.argv.map(e => e.toUpperCase()));
+   const wsConnection = new WebSocket(Env.logger.wsServerUrl);
+   const upperCaseArgs = process.argv.map(e => e.toUpperCase());
 
-   const logTypes: Set<logType> = new Set<logType>();
-   if (!logTypes.has("ALL"))
-      allLogsType.forEach(t => {
-         if (args.has(t)) logTypes.add(t);
-      });
+   const logTypeArgs: Array<LogType> = upperCaseArgs.filter(upperCaseArg => Object.keys(LogType).some(lt => upperCaseArg === lt)) as Array<LogType>;
+   const selectedLogsChanel: Array<LogType> = [];
 
-   if (logTypes.size === 0) logTypes.add("ALL");
+   if (logTypeArgs.some(e => e === LogType.ALL)) selectedLogsChanel.push(LogType.ALL);
+   else logTypeArgs.forEach(e => selectedLogsChanel.push(e));
+   if (selectedLogsChanel.length === 0) selectedLogsChanel.push(LogType.ALL);
+
+
+   console.log();
+   selectedLogsChanel.forEach(e => console.log(` | Selected logs canal : ${e}`));
+   console.log();
 
    wsConnection.onmessage = (e: any) => {
-      const data: logList = JSON.parse(e.data);
+      const data: LogListData = JSON.parse(e.data);
       data.logs.forEach(l => console.log(LogWrapper.ToConsoleString(new Log(l))));
    }
+
    wsConnection.onclose = (e) => console.log(e);
    wsConnection.onopen = (e) => {
-      LoggerServerApi.WSGetLogsList(wsConnection, [...logTypes]);
-      LoggerServerApi.WSSubscribeToLogs(wsConnection, [...logTypes]);
+      LoggerServerApi.WSGetLogsList(wsConnection, selectedLogsChanel);
+      LoggerServerApi.WSSubscribeToLogs(wsConnection, selectedLogsChanel);
    }
 })();

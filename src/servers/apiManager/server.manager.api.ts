@@ -40,9 +40,9 @@ import Env from "../../../env/env";
                      secret: "api-secret"
                   },
                   userStarterPack: {
-                     gold: 10,
-                     xp: 10,
-                     lvl: 10
+                     gold: 0,
+                     xp: 0,
+                     lvl: 1
                   }
                }
             }
@@ -51,9 +51,5 @@ import Env from "../../../env/env";
    });
 
    await managerApi.Setup();
-
-   await managerApi.UseHelmet();
-   await managerApi.UsePathLogger();
-
    await managerApi.Boot();
 })();

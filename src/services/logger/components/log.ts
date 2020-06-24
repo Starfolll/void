@@ -1,32 +1,49 @@
 import uniqId from "uniqid";
 
 
-export type logType = "DEBUG" | "INFO" | "WARN" | "ERROR" | "FATAL" | "TRACE" | "ALL";
-export const allLogsType: Set<logType> = new Set<logType>(["DEBUG", "INFO", "WARN", "ERROR", "FATAL", "TRACE", "ALL"]);
-export type log = {
-   type: logType,
-   time: Date,
-   data: string,
-   id: string
-};
+export enum LogType {
+   DEBUG = "DEBUG",
+   INFO = "INFO",
+   WARN = "WARN",
+   ERROR = "ERROR",
+   FATAL = "FATAL",
+   TRACE = "TRACE",
+   ALL = "ALL"
+}
 
-export class Log {
-   public readonly type: logType;
-   public readonly time: Date = new Date(Date.now());
+
+export interface LogData {
+   readonly type: LogType;
+   readonly time: Date;
+   readonly data: string;
+   readonly id: string;
+   readonly serverId: string;
+}
+
+export interface LogInput {
+   readonly id?: string;
+   readonly type: LogType;
+   readonly time?: Date;
+   readonly data: string;
+   readonly serverId: string;
+}
+
+
+export class Log implements LogData {
+   public readonly type: LogType;
+   public readonly time: Date;
    public readonly data: string;
    public readonly id: string;
+   public readonly serverId: string;
 
 
-   constructor(props: {
-      type: logType,
-      data: string,
-      time?: Date,
-      id?: string
-   }) {
-      this.type = props.type;
-      this.data = props.data;
-      this.id = !!props.id ? props.id : `${uniqId(undefined)}-${(Math.random() * 1000000 | 0)}`;
+   constructor(logInput: LogInput) {
+      this.type = logInput.type;
+      this.data = logInput.data;
+      this.serverId = logInput.serverId;
 
-      if (props.time) this.time = new Date(props.time);
+      this.id = !!logInput.id ? logInput.id : uniqId();
+
+      this.time = !!logInput.time ? new Date(logInput.time) : new Date(Date.now());
    }
 }

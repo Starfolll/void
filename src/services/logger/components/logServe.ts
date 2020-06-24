@@ -1,10 +1,11 @@
-import {LogList} from "./logList";
-import {allLogsType, Log, logType} from "./log";
+import {LogList, LogListConfigs} from "./logList";
+import {Log, LogInput, LogType} from "./log";
 import WebSocket from "ws";
 import LogConnection from "./logConnection";
 import uniqId from "uniqid";
 import Joi from "joi";
 import LogWrapper from "./logWrapper";
+import Env from "../../../../env/env";
 
 
 const SUBSCRIBE_TO_LOG = "SUBSCRIBE_TO_LOG";
@@ -13,17 +14,17 @@ const GET_LOG_LIST = "GET_LOG_LIST";
 
 interface ConnectionSubscribeToLogs {
    messageType: typeof SUBSCRIBE_TO_LOG;
-   logsType: Array<logType>;
+   logsType: Array<LogType>;
 }
 
 interface ConnectionUnsubscribeFromLogs {
    messageType: typeof UNSUBSCRIBE_FROM_LOG;
-   logsType: Array<logType>;
+   logsType: Array<LogType>;
 }
 
 interface ConnectionGetLogList {
    messageType: typeof GET_LOG_LIST;
-   logsType: Array<logType>;
+   logsType: Array<LogType>;
 }
 
 export type logServerWSConnectionActions =
@@ -36,26 +37,33 @@ export default class LogServe {
    private readonly wsPort: number;
    private readonly logConnections: { [uniqId: string]: LogConnection } = {};
 
-   public readonly logsList = {
-      INFO: new LogList({listType: "INFO"}),
-      DEBUG: new LogList({listType: "DEBUG"}),
-      ERROR: new LogList({listType: "ERROR"}),
-      FATAL: new LogList({listType: "FATAL"}),
-      TRACE: new LogList({listType: "TRACE"}),
-      WARN: new LogList({listType: "WARN"}),
-   };
+   private readonly logsListsConfigs: Record<LogType, LogListConfigs>;
+   public readonly logsList: Record<LogType, LogList>;
 
 
-   constructor(props: {
-      wsPort: number
-   }) {
-      this.wsPort = props.wsPort;
+   constructor(wsPort: number, logsListsConfigs: Record<LogType, LogListConfigs>) {
+      this.wsPort = wsPort;
+      this.logsListsConfigs = logsListsConfigs;
+
+      this.logsList = {
+         ALL: new LogList(LogType.ALL, [], this.logsListsConfigs.ALL),
+         INFO: new LogList(LogType.INFO, [], this.logsListsConfigs.INFO),
+         DEBUG: new LogList(LogType.DEBUG, [], this.logsListsConfigs.DEBUG),
+         ERROR: new LogList(LogType.ERROR, [], this.logsListsConfigs.ERROR),
+         FATAL: new LogList(LogType.FATAL, [], this.logsListsConfigs.FATAL),
+         TRACE: new LogList(LogType.TRACE, [], this.logsListsConfigs.TRACE),
+         WARN: new LogList(LogType.WARN, [], this.logsListsConfigs.WARN),
+      }
 
       const wsServer = new WebSocket.Server({port: this.wsPort});
       wsServer.on("connection", (connection: WebSocket, req) => {
          const connectionUniqId = uniqId(`${Math.random() * 1000000000 | 0}`);
          this.logConnections[connectionUniqId] = new LogConnection(connection);
-         this.AddLog("TRACE", `new log connection: ${req.connection.remoteAddress}`);
+         this.AddLog({
+            type: LogType.TRACE,
+            serverId: Env.logger.serverId,
+            data: `new log connection: ${req.connection.remoteAddress}`,
+         });
 
          connection.on("message", async (event: string) => {
             const data: logServerWSConnectionActions = JSON.parse(event);
@@ -65,6 +73,8 @@ export default class LogServe {
             });
 
             if (!!dataSchema.validate(data).error) return;
+
+            const allLogsType = new Set<LogType>(Object.keys(LogType) as Array<LogType>);
 
             switch (data.messageType) {
                case "GET_LOG_LIST":
@@ -99,26 +109,27 @@ export default class LogServe {
    }
 
 
-   public GetLogsBundle(logsType?: Array<logType>): LogList {
-      const types = !!logsType ? new Set<logType>(logsType) : null;
+   public GetLogsBundle(logsType?: Array<LogType>): LogList {
+      const types = !!logsType ? new Set<LogType>(logsType) : null;
+      const allLogsType = new Set<LogType>(Object.keys(LogType) as Array<LogType>);
       let logs: Array<Log> = [];
 
-      if (types?.has("ALL")) allLogsType.forEach((t: logType) => {
+      if (types?.has(LogType.ALL)) allLogsType.forEach((t: LogType) => {
          if (t !== "ALL") logs.push(...this.logsList[t].GetLogs())
       });
-      else allLogsType.forEach((t: logType) => {
+      else allLogsType.forEach((t: LogType) => {
          if (t !== "ALL" && types?.has(t)) logs.push(...this.logsList[t].GetLogs())
       });
 
-      return new LogList({listType: "ALL", logs});
+      return new LogList(LogType.ALL, logs, this.logsListsConfigs.ALL);
    }
 
-   public AddLog(logType: logType, data: string) {
-      if (logType !== "ALL") {
-         const newLog = new Log({type: logType, data});
+   public AddLog(logInput: LogInput) {
+      if (logInput.type !== LogType.ALL) {
+         const newLog = new Log(logInput);
          console.log(LogWrapper.ToConsoleString(newLog));
 
-         this.logsList[logType].AddLog(newLog);
+         this.logsList[logInput.type].AddLog(newLog);
          this.SendLogToConnections(newLog);
       }
    }

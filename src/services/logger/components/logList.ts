@@ -1,24 +1,33 @@
-import {log, Log, logType} from "./log";
+import {Log, LogData, LogType} from "./log";
 import LogWrapper from "./logWrapper";
 
 
-export type logList = {
-   listType: logType;
-   logs: Array<log>;
+export interface LogListConfigs {
+   readonly listInit: {
+      logsLimit: number
+   };
 }
 
+
+export interface LogListData {
+   readonly listType: LogType;
+   readonly logs: Array<LogData>;
+}
+
+
 export class LogList {
-   public readonly listType: logType;
+   public readonly listType: LogType;
+
+   private readonly configs: LogListConfigs;
    private readonly logs: Array<Log> = [];
 
 
-   constructor(props: {
-      listType: logType,
-      logs?: Array<Log>,
-   }, initialLogsLimit: number = 1000) {
-      this.listType = props.listType;
-      if (!!props.logs) this.logs = props.logs
-         .splice(props.logs.length - initialLogsLimit, props.logs.length)
+   constructor(listType: LogType, logs: Array<Log>, configs: LogListConfigs) {
+      this.configs = configs;
+      this.listType = listType;
+
+      if (!!logs) this.logs = logs
+         .splice(logs.length - this.configs.listInit.logsLimit, logs.length)
          .sort((a, b) => (+a.time) - (+b.time));
    }
 
@@ -33,7 +42,7 @@ export class LogList {
    }
 
 
-   public ToJson(limit?: number): logList {
+   public ToJson(limit?: number): LogListData {
       return {
          listType: this.listType,
          logs: this.GetLogs(limit).map((l: Log) => LogWrapper.ToJson(l))
@@ -46,7 +55,7 @@ export class LogList {
             <div style="position:sticky;top: 0;left: 0">
                <p>${this.listType}</p><hr>
             </div>
-            ${this.GetLogs(limit).map((l: Log) => LogWrapper.ToHTML(l))}
+            ${this.GetLogs(limit).map((l: Log) => LogWrapper.ToHTML(l)).join(" ")}
          </div>
       `
    }

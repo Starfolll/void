@@ -3,6 +3,9 @@ import LoggerServerApi from "../../services/logger/loggerServerApi";
 import DbQueriesUser from "../../../db/queries/DbQueries.user";
 import ValidateApi from "./validation/validate.api";
 import {UserWhereUniqueInput} from "../../../generated/prisma-client";
+import {LogType} from "../../services/logger/components/log";
+import Manager from "../../utils/manager/manager";
+import Env from "../../../env/env";
 
 
 export enum ApiParams {
@@ -19,17 +22,20 @@ export interface ManagerApiParamsConfigs {
 }
 
 
-export default class ManagerApiParams {
+export default class ManagerApiParams extends Manager<ManagerApiParamsConfigs> {
    private readonly app: Express;
-   private readonly configs: ManagerApiParamsConfigs;
 
 
    constructor(configs: ManagerApiParamsConfigs) {
-      this.app = express();
-      this.configs = configs;
+      super(configs);
 
+      this.app = express();
       this.app.on("mount", async () => {
-         await LoggerServerApi.AddLog("INFO", `Manager api params is up and running`);
+         await LoggerServerApi.SendLog({
+            type: LogType.INFO,
+            serverId: Env.managers.apiManager.serverId,
+            data: `${Env.upAndRunningMessage} [manager api params]`
+         });
       });
    }
 
@@ -42,8 +48,8 @@ export default class ManagerApiParams {
       await this.AnyHash();
    }
 
-   public async GetApp() {
-      return this.app;
+   public async Setup(app: Express): Promise<void> {
+      app.use(this.app);
    }
 
 

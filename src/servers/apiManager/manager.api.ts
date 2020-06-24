@@ -3,6 +3,9 @@ import helmet from "helmet";
 import ManagerApiRoutes, {ManagerApiRoutesConfigs} from "./manager.api.routes";
 import LoggerServerApi from "../../services/logger/loggerServerApi";
 import ManagerApiParams, {ManagerApiParamsConfigs} from "./manager.api.params";
+import {LogType} from "../../services/logger/components/log";
+import Manager from "../../utils/manager/manager";
+import Env from "../../../env/env";
 
 
 interface ManagerApiConfigs {
@@ -13,20 +16,19 @@ interface ManagerApiConfigs {
 }
 
 
-export default class ManagerApi {
+export default class ManagerApi extends Manager<ManagerApiConfigs> {
    private readonly app: Express;
-   private readonly managerApiConfigs: ManagerApiConfigs;
 
    private readonly params: ManagerApiParams;
    private readonly routes: ManagerApiRoutes;
 
 
    constructor(configs: ManagerApiConfigs) {
-      this.app = express();
-      this.managerApiConfigs = configs;
+      super(configs);
 
-      this.params = new ManagerApiParams(configs.params);
-      this.routes = new ManagerApiRoutes(configs.routes);
+      this.app = express();
+      this.params = new ManagerApiParams(this.configs.params);
+      this.routes = new ManagerApiRoutes(this.configs.routes);
    }
 
 
@@ -39,27 +41,36 @@ export default class ManagerApi {
 
    private async SetupUtils() {
       await this.app.use(express.json());
+      await this.UseHelmet();
+      await this.UsePathLogger();
    }
 
 
-   public async UseHelmet() {
+   private async UseHelmet() {
       await this.app.use(helmet());
    }
 
-   public async UsePathLogger() {
+   private async UsePathLogger() {
       await this.app.use(async (req, res, next) => {
-         await LoggerServerApi.AddLog("TRACE", `${req.ip} | ${req.originalUrl}`);
+         await LoggerServerApi.SendLog({
+            type: LogType.INFO,
+            serverId: Env.managers.apiManager.serverId,
+            data: `server request : [method: ${req.method}, id: ${req.ip}, url: ${req.url}]`
+         });
+
          next();
       });
    }
 
 
    public async Boot() {
-      this.app.use(await this.params.GetApp());
-      this.app.use(await this.routes.GetApp());
+      await this.params.Setup(this.app);
+      await this.routes.Setup(this.app);
 
-      this.app.listen(this.managerApiConfigs.port, () => LoggerServerApi.AddLog("INFO",
-         `API server is listening on port ${this.managerApiConfigs.port}`
-      ));
+      this.app.listen(this.configs.port, () => LoggerServerApi.SendLog({
+         type: LogType.INFO,
+         serverId: Env.managers.apiManager.serverId,
+         data: `${Env.upAndRunningMessage} [port: ${this.configs.port}]`
+      }));
    }
 }

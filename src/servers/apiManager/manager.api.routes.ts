@@ -2,6 +2,9 @@ import RoutesApiClusterUser, {ApiClusterUserConfigs, ApiClusterUserRoutes} from 
 import express, {Express} from "express";
 import {ApiRoutesConfigs} from "./routes/routes.apiCluster";
 import LoggerServerApi from "../../services/logger/loggerServerApi";
+import {LogType} from "../../services/logger/components/log";
+import Manager from "../../utils/manager/manager";
+import Env from "../../../env/env";
 
 
 export interface ManagerApiRoutesConfigs {
@@ -12,22 +15,23 @@ export interface ManagerApiRoutesConfigs {
 }
 
 
-export default class ManagerApiRoutes {
+export default class ManagerApiRoutes extends Manager<ManagerApiRoutesConfigs> {
    private readonly app: Express;
-   private readonly configs: ManagerApiRoutesConfigs;
-
-
    private readonly ApiUser: RoutesApiClusterUser;
 
 
    constructor(configs: ManagerApiRoutesConfigs) {
-      this.app = express();
-      this.configs = configs;
+      super(configs);
 
       this.ApiUser = new RoutesApiClusterUser(this.configs.user.routes, this.configs.user.configs);
 
+      this.app = express();
       this.app.on("mount", async () => {
-         await LoggerServerApi.AddLog("INFO", `Manager api routes is up and running`);
+         await LoggerServerApi.SendLog({
+            type: LogType.INFO,
+            serverId: Env.managers.apiManager.serverId,
+            data: `${Env.upAndRunningMessage} [manager api routes]`
+         });
       });
    }
 
@@ -36,7 +40,7 @@ export default class ManagerApiRoutes {
       this.app.use(this.ApiUser.GetApp());
    }
 
-   public async GetApp() {
-      return this.app;
+   public async Setup(app: Express): Promise<void> {
+      app.use(this.app);
    }
 }

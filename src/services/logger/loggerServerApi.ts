@@ -1,8 +1,9 @@
 import fetch from "node-fetch";
-import {logType} from "./components/log";
+import {LogInput, LogType} from "./components/log";
 import {logServerWSConnectionActions} from "./components/logServe";
 import WebSocket from "ws";
 import isReachable from "is-reachable";
+import Env from "../../../env/env";
 
 
 export default class LoggerServerApi {
@@ -10,29 +11,36 @@ export default class LoggerServerApi {
       return await isReachable(`http://localhost:8888`);
    }
 
-   public static async AddLog(logType: logType, data: string): Promise<void> {
-      if (logType !== "ALL") {
-         await fetch(`http://localhost:8888/log/add/${logType.toLowerCase()}`, {
+   public static async SendLog(log: LogInput): Promise<void> {
+      if (log.type !== LogType.ALL) {
+         await fetch(`http://localhost:${Env.logger.ports.loggerServerPort}/log/add`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({data})
+            body: JSON.stringify({time: Date.now(), ...log} as LogInput),
          });
       }
    }
 
-   public static async WSSubscribeToLogs(connection: WebSocket | any, logsType: Array<logType>) {
+
+   public static async GetServerId(): Promise<string> {
+      const res = await fetch(`http://localhost:${Env.logger.ports.loggerServerPort}/stats/serverId`);
+      return await res.json();
+   }
+
+
+   public static async WSSubscribeToLogs(connection: WebSocket | any, logsType: Array<LogType>) {
       connection.send(JSON.stringify({
          messageType: "SUBSCRIBE_TO_LOG", logsType
       } as logServerWSConnectionActions));
    }
 
-   public static async WSUnsubscribeFromLogs(connection: WebSocket | any, logsType: Array<logType>) {
+   public static async WSUnsubscribeFromLogs(connection: WebSocket | any, logsType: Array<LogType>) {
       connection.send(JSON.stringify({
          messageType: "UNSUBSCRIBE_FROM_LOG", logsType
       } as logServerWSConnectionActions));
    }
 
-   public static async WSGetLogsList(connection: WebSocket | any, logsType: Array<logType>) {
+   public static async WSGetLogsList(connection: WebSocket | any, logsType: Array<LogType>) {
       connection.send(JSON.stringify({
          messageType: "GET_LOG_LIST", logsType
       } as logServerWSConnectionActions));

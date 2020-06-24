@@ -59,7 +59,7 @@ export default abstract class RoutesApiCluster<T extends { [route: string]: ApiR
 
    protected async abstract BindApi(): Promise<void>;
 
-   protected GetApp() {
+   public GetApp() {
       return this.app;
    }
 

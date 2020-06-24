@@ -1,21 +1,29 @@
-import Joi from "joi";
 import express from "express";
-import {logType} from "./components/log";
+import {LogInput, LogType} from "./components/log";
 import LogServe from "./components/logServe";
 import Env from "../../../env/env";
+import Joi from "joi";
 
 
 // http://www.tutorialspoint.com/log4j/log4j_logging_levels.htm
 
 
 const app = express();
+const logServe = new LogServe(Env.logger.ports.loggerServerWsPort, {
+   ALL: {listInit: {logsLimit: 1000}},
+   DEBUG: {listInit: {logsLimit: 1000}},
+   ERROR: {listInit: {logsLimit: 1000}},
+   FATAL: {listInit: {logsLimit: 1000}},
+   INFO: {listInit: {logsLimit: 1000}},
+   TRACE: {listInit: {logsLimit: 1000}},
+   WARN: {listInit: {logsLimit: 1000}}
+});
 
-const logServe = new LogServe({wsPort: Env.loggerServerWsPort});
-const bodyValidationSchema = Joi.object({data: Joi.string().required()});
 
 (async () => {
    app.use(express.json());
-   app.use(express.static(__dirname + "/web/dist"));
+
+   app.get("/stats/serverId", async (req, res) => res.json(Env.logger.serverId));
 
    app.get("/log/get/html/info", async (req, res) => res.send(logServe.logsList.INFO.ToHTML()));
    app.get("/log/get/html/debug", async (req, res) => res.send(logServe.logsList.DEBUG.ToHTML()));
@@ -23,7 +31,7 @@ const bodyValidationSchema = Joi.object({data: Joi.string().required()});
    app.get("/log/get/html/fatal", async (req, res) => res.send(logServe.logsList.FATAL.ToHTML()));
    app.get("/log/get/html/trace", async (req, res) => res.send(logServe.logsList.TRACE.ToHTML()));
    app.get("/log/get/html/warn", async (req, res) => res.send(logServe.logsList.WARN.ToHTML()));
-   app.get("/log/get/html/*", async (req, res) => res.send(logServe.GetLogsBundle(["ALL"]).ToHTML()));
+   app.get("/log/get/html/*", async (req, res) => res.send(logServe.GetLogsBundle([LogType.ALL]).ToHTML()));
 
    app.get("/log/get/json/info", async (req, res) => res.json(logServe.logsList.INFO.ToJson()));
    app.get("/log/get/json/debug", async (req, res) => res.json(logServe.logsList.DEBUG.ToJson()));
@@ -31,7 +39,7 @@ const bodyValidationSchema = Joi.object({data: Joi.string().required()});
    app.get("/log/get/json/fatal", async (req, res) => res.json(logServe.logsList.FATAL.ToJson()));
    app.get("/log/get/json/trace", async (req, res) => res.json(logServe.logsList.TRACE.ToJson()));
    app.get("/log/get/json/warn", async (req, res) => res.json(logServe.logsList.WARN.ToJson()));
-   app.get("/log/get/json/*", async (req, res) => res.json(logServe.GetLogsBundle(["ALL"]).ToJson()));
+   app.get("/log/get/json/*", async (req, res) => res.json(logServe.GetLogsBundle([LogType.ALL]).ToJson()));
 
    app.get("/*", async (req, res) => res.send(`
         <div style="font-family: monospace">
@@ -58,22 +66,30 @@ const bodyValidationSchema = Joi.object({data: Joi.string().required()});
         </div>
    `));
 
-   const addLog = (req: any, res: any, logType: logType) => {
-      const body: { data: string } = req.body;
+   app.post("/log/add", async (req: any, res: any) => {
+      const body: LogInput = req.body;
 
-      if (!(bodyValidationSchema.validate(body).error)) {
-         if (logType !== "ALL") logServe.AddLog(logType, body.data);
-         res.send();
-      } else res.status(503).send();
-   };
-   app.post("/log/add/info", async (req: any, res: any) => addLog(req, res, "INFO"));
-   app.post("/log/add/debug", async (req: any, res: any) => addLog(req, res, "DEBUG"));
-   app.post("/log/add/error", async (req: any, res: any) => addLog(req, res, "ERROR"));
-   app.post("/log/add/warn", async (req: any, res: any) => addLog(req, res, "WARN"));
-   app.post("/log/add/trace", async (req: any, res: any) => addLog(req, res, "TRACE"));
-   app.post("/log/add/fatal", async (req: any, res: any) => addLog(req, res, "FATAL"));
+      const isValid = Joi.object({
+         id: Joi.string(),
+         time: Joi.number(),
+         data: Joi.string().required(),
+         type: Joi.string().required(),
+         serverId: Joi.string().required()
+      }).validate(body);
 
-   app.listen(Env.loggerServerPort, () => {
-      logServe.AddLog("INFO", "Log server is up and running");
+      console.log(isValid);
+
+      if (!isValid.error) logServe.AddLog(body);
+      else res.status(422);
+
+      res.send();
+   });
+
+   app.listen(Env.logger.ports.loggerServerPort, () => {
+      logServe.AddLog({
+         type: LogType.INFO,
+         data: Env.upAndRunningMessage,
+         serverId: Env.logger.serverId
+      });
    });
 })();
