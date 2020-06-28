@@ -14,51 +14,52 @@ export interface ValidationApiUserConfigs {
 
 
 export class ValidationApiUserDefaultConfigs implements ValidationApiUserConfigs {
-   readonly email: minMaxValidation = {
+   public readonly email: minMaxValidation = {
       minLength: 6,
       maxLength: 255
    };
 
-   readonly password: minMaxValidation = {
+   public readonly password: minMaxValidation = {
       minLength: 8,
       maxLength: 255
    }
 
-   readonly token: minMaxValidation = {
+   public readonly token: minMaxValidation = {
       minLength: 32,
       maxLength: 255
    };
 
-   readonly userId: minMaxValidation = {
+   public readonly userId: minMaxValidation = {
       minLength: 32,
       maxLength: 255
    };
 
-   readonly name: minMaxValidation & regexValidation = {
+   public readonly name: minMaxValidation & regexValidation = {
       minLength: 4,
       maxLength: 32,
       regex: /[\w_-]/
    };
 
-   readonly publicName: minMaxValidation & regexValidation = {
+   public readonly publicName: minMaxValidation & regexValidation = {
       minLength: 4,
       maxLength: 32,
       regex: /.*/
    };
 
-   readonly anyHash: minMaxValidation = {
+   public readonly anyHash: minMaxValidation = {
       minLength: 3,
       maxLength: 1000
    }
 }
 
 
-export default class ValidationApiUser extends ValidationApi<ValidationApiUserConfigs | ValidationApiUserDefaultConfigs> {
+export default class ValidationApiUser extends ValidationApi<ValidationApiUserConfigs> {
    public readonly keys: Record<keyof ValidationApiUserDefaultConfigs, string>
       = Object.keys(ValidationApiUserDefaultConfigs)
       .reduce((p, n) => ({...p, n}), {}) as Record<keyof ValidationApiUserDefaultConfigs, string>;
 
-   constructor(configs?: ValidationApiUserConfigs | ValidationApiUserDefaultConfigs) {
+
+   constructor(configs?: ValidationApiUserConfigs) {
       super(!!configs ? configs : new ValidationApiUserDefaultConfigs());
    }
 

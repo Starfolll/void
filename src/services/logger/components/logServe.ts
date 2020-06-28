@@ -6,6 +6,7 @@ import uniqId from "uniqid";
 import Joi from "joi";
 import LogWrapper from "./logWrapper";
 import Env from "../../../../env/env";
+import Logger from "../logger";
 
 
 const SUBSCRIBE_TO_LOG = "SUBSCRIBE_TO_LOG";
@@ -61,7 +62,7 @@ export default class LogServe {
          this.logConnections[connectionUniqId] = new LogConnection(connection);
          this.AddLog({
             type: LogType.TRACE,
-            serverId: Env.logger.serverId,
+            serverId: Env.services.logger.serverId,
             data: `new log connection: ${req.connection.remoteAddress}`,
          });
 
@@ -126,6 +127,9 @@ export default class LogServe {
 
    public AddLog(logInput: LogInput) {
       if (logInput.type !== LogType.ALL) {
+         if (Logger.maxServerIdLength < logInput.serverId.length)
+            Logger.maxServerIdLength = logInput.serverId.length;
+
          const newLog = new Log(logInput);
          console.log(LogWrapper.ToConsoleString(newLog));
 

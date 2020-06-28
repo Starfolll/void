@@ -2,7 +2,6 @@ import {Lobby, LobbyCreateInput, LobbyWhereUniqueInput, prisma} from "../../gene
 
 
 export default class DbQueriesLobby {
-
    public static async IsExists(uniqueInput: LobbyWhereUniqueInput): Promise<boolean> {
       return await prisma.$exists.lobby(uniqueInput);
    }

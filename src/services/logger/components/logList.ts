@@ -48,15 +48,4 @@ export class LogList {
          logs: this.GetLogs(limit).map((l: Log) => LogWrapper.ToJson(l))
       };
    }
-
-   public ToHTML(limit?: number): string {
-      return `
-         <div style="font-family: monospace">
-            <div style="position:sticky;top: 0;left: 0">
-               <p>${this.listType}</p><hr>
-            </div>
-            ${this.GetLogs(limit).map((l: Log) => LogWrapper.ToHTML(l)).join(" ")}
-         </div>
-      `
-   }
 }

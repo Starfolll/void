@@ -4,15 +4,10 @@
   "description": "v o i d",
   "main": "server.js",
   "scripts": {
-    "start": "node commander.js",
-    "games-manager": "node server.js --server-mode-games-manager",
-    "lobby-manager": "node server.js --server-mode-lobby-manager",
-    "static-and-api": "node server.js --server-mode-static-and-api-serve",
-    "loggerServer:start": "pm2 start src/services/logger/loggerServer.js --name logS",
-    "loggerServer:reload": "pm2 reload logS",
-    "loggerServer:delete": "pm2 delete logS",
-    "logs": "node src/services/logger/loggerCli.js",
-    "server:api": "node src/servers/apiManager/server.manager.api.js"
+    "start": "npm run build && npm run ecosystem:start",
+    "build": "tsc",
+    "ecosystem:start": "pm2 start ecosystem.config.js",
+    "logs": "node src/services/logger/loggerCli.js"
   },
   "engines": {
     "node": ">=12.x.x"
@@ -32,14 +27,22 @@
     "@types/readline-sync": "^1.4.3",
     "@types/uniqid": "^4.1.3",
     "@types/ws": "^6.0.4",
+    "@types/express-validator": "^3.0.0",
+    "@types/helmet": "0.0.47",
+    "@types/joi": "^14.3.4"
+  },
+  "dependencies": {
     "bcrypt": "^3.0.8",
     "chalk": "^3.0.0",
     "crypto-random-string": "^3.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
+    "express-validator": "^6.6.0",
     "graphql": "^14.6.0",
+    "helmet": "^3.23.3",
     "is-reachable": "^4.0.0",
+    "joi": "^14.3.1",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.10",
     "prisma": "^1.34.10",
@@ -52,13 +55,5 @@
     "uniqid": "^5.2.0",
     "validate": "^5.1.0",
     "ws": "^7.3.0"
-  },
-  "dependencies": {
-    "@types/express-validator": "^3.0.0",
-    "@types/helmet": "0.0.47",
-    "@types/joi": "^14.3.4",
-    "express-validator": "^6.5.0",
-    "helmet": "^3.23.1",
-    "joi": "^14.3.1"
   }
 }

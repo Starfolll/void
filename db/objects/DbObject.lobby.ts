@@ -1,19 +1,15 @@
-import {DateTimeOutput, ID_Output, Lobby} from "../../generated/prisma-client";
+import {DateTimeOutput, ID_Output, Lobby, LobbyStatus} from "../../generated/prisma-client";
 
 
 export default class DbObjectLobby implements Lobby {
    public readonly id: ID_Output;
-   public readonly name: string;
-
    public readonly createdAt: DateTimeOutput;
-   public readonly updatedAt: DateTimeOutput;
+   public readonly status: LobbyStatus;
 
 
    constructor(lobbyData: Lobby) {
       this.id = lobbyData.id;
-      this.name = lobbyData.name;
-
-      this.updatedAt = lobbyData.updatedAt;
+      this.status = lobbyData.status;
       this.createdAt = lobbyData.createdAt;
    }
 }

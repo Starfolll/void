@@ -1,7 +1,7 @@
 import WebSocket, {ServerOptions} from "ws";
 import Manager from "../../utils/manager/manager";
 import Lobby, {LobbyConfigs} from "./lobby/lobby";
-import LoggerServerApi from "../../services/logger/loggerServerApi";
+import Logger from "../../services/logger/logger";
 import Env from "../../../env/env";
 import {LogType} from "../../services/logger/components/log";
 
@@ -26,17 +26,13 @@ export default class ManagerLobby extends Manager<ManagerLobbyConfigs> {
 
 
    public async Setup() {
-      await this.ListenForNewConnections();
+      this.lobby.ApplyClientListeners();
+      this.lobby.ApplyListeners();
    }
-
-   private async ListenForNewConnections() {
-      this.server.on("connection", this.lobby.ConnectPlayer);
-   }
-
 
    public async Boot() {
       this.server.on("listening", async () => {
-         await LoggerServerApi.SendLog({
+         await Logger.SendLog({
             serverId: Env.managers.apiManager.serverId,
             type: LogType.INFO,
             data: Env.upAndRunningMessage

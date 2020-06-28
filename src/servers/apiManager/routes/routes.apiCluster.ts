@@ -1,5 +1,8 @@
 import express, {Express} from "express";
 import {ApiParams} from "../manager.api.params";
+import Logger from "../../../services/logger/logger";
+import {LogType} from "../../../services/logger/components/log";
+import Env from "../../../../env/env";
 
 
 type apiResponseError = string | Array<any> | undefined;
@@ -18,23 +21,22 @@ export interface ApiRouteConfigs {
 }
 
 export interface ApiRoutesConfigs<RoutesConfigs> {
-   readonly apiPath: string;
+   readonly path: string;
    readonly clusterPath: string;
    readonly routesConfigs: RoutesConfigs;
 }
 
 
-enum statusCodes {
+enum StatusCodes {
    validationError = 422,
-   ok = 200
 }
 
 
 export default abstract class RoutesApiCluster<T extends { [route: string]: ApiRouteConfigs }, K extends keyof T, Res extends ApiResponse<string, any>> implements ApiRoutesConfigs<T> {
    protected readonly app: Express;
-   protected readonly statusCodes = statusCodes;
+   protected readonly statusCodes = StatusCodes;
 
-   public readonly apiPath: string;
+   public readonly path: string;
    public readonly clusterPath: string;
    public readonly routesConfigs: T;
 
@@ -42,7 +44,7 @@ export default abstract class RoutesApiCluster<T extends { [route: string]: ApiR
    protected constructor(configs: ApiRoutesConfigs<T>) {
       this.app = express();
 
-      this.apiPath = configs.apiPath;
+      this.path = configs.path;
       this.clusterPath = configs.clusterPath;
       this.routesConfigs = configs.routesConfigs;
    }
@@ -53,18 +55,26 @@ export default abstract class RoutesApiCluster<T extends { [route: string]: ApiR
    }
 
    protected GetPath(path: K) {
-      return `${this.apiPath}${this.clusterPath}${this.routesConfigs[path]}`;
+      return `${this.path}${this.clusterPath}${this.routesConfigs[path].path}`;
    }
 
 
    protected async abstract BindApi(): Promise<void>;
 
-   public GetApp() {
+   public async GetApp() {
       return this.app;
    }
 
+   public async LogApiRoutes() {
+      for (const route of this.app._router.stack) if (!!route.route && !!route.route.path) await Logger.SendLog({
+         type: LogType.INFO,
+         serverId: Env.managers.apiManager.serverId,
+         data: `Api using route [${Object.keys(route.route.methods).join(", ")} => ${route.route.path}]`
+      });
+   }
 
-   protected GetErrorResponse(resName: string, error: apiResponseError, options?: { res: any, status: statusCodes }) {
+
+   protected GetErrorResponse(resName: string, error: apiResponseError, options?: { res: any, status: StatusCodes }) {
       if (!!options) options.res.status(options.status);
 
       return {

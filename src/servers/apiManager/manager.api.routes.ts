@@ -1,16 +1,21 @@
-import RoutesApiClusterUser, {ApiClusterUserConfigs, ApiClusterUserRoutes} from "./routes/routes.apiCluster.user";
 import express, {Express} from "express";
 import {ApiRoutesConfigs} from "./routes/routes.apiCluster";
-import LoggerServerApi from "../../services/logger/loggerServerApi";
-import {LogType} from "../../services/logger/components/log";
 import Manager from "../../utils/manager/manager";
-import Env from "../../../env/env";
+import {ApiClusterUser} from "./routes/routes.apiCluster.user";
+import {ApiClusterLobby} from "./routes/routes.apiCluster.lobby";
+import RoutesApiClusterUser = ApiClusterUser.RoutesApiClusterUser;
+import RoutesApiClusterLobby = ApiClusterLobby.RoutesApiClusterLobby;
 
 
 export interface ManagerApiRoutesConfigs {
    user: {
-      routes: ApiRoutesConfigs<ApiClusterUserRoutes>,
-      configs: ApiClusterUserConfigs
+      routes: ApiRoutesConfigs<ApiClusterUser.ApiClusterUserRoutes>,
+      configs: ApiClusterUser.ApiClusterUserConfigs
+   };
+
+   lobby: {
+      routes: ApiRoutesConfigs<ApiClusterLobby.ApiClusterLobbyRoutes>,
+      configs: ApiClusterLobby.ApiClusterLobbyConfigs
    };
 }
 
@@ -18,29 +23,26 @@ export interface ManagerApiRoutesConfigs {
 export default class ManagerApiRoutes extends Manager<ManagerApiRoutesConfigs> {
    private readonly app: Express;
    private readonly ApiUser: RoutesApiClusterUser;
+   private readonly ApiLobby: RoutesApiClusterLobby;
 
 
    constructor(configs: ManagerApiRoutesConfigs) {
       super(configs);
 
       this.ApiUser = new RoutesApiClusterUser(this.configs.user.routes, this.configs.user.configs);
+      this.ApiLobby = new RoutesApiClusterLobby(this.configs.lobby.routes, this.configs.user.configs);
 
       this.app = express();
-      this.app.on("mount", async () => {
-         await LoggerServerApi.SendLog({
-            type: LogType.INFO,
-            serverId: Env.managers.apiManager.serverId,
-            data: `${Env.upAndRunningMessage} [manager api routes]`
-         });
-      });
    }
 
 
    public async Boot() {
-      this.app.use(this.ApiUser.GetApp());
+      await this.ApiLobby.BindApi();
+      await this.ApiUser.BindApi();
    }
 
-   public async Setup(app: Express): Promise<void> {
-      app.use(this.app);
+   public async Setup(app: Express) {
+      app.use(await this.ApiUser.GetApp());
+      app.use(await this.ApiLobby.GetApp());
    }
 }

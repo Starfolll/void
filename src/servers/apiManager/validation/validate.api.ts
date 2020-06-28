@@ -1,21 +1,30 @@
 import ValidationApiUser, {ValidationApiUserConfigs, ValidationApiUserDefaultConfigs} from "./validation.api.user";
 import {ValidationResult} from "joi";
+import ValidationApiLobby, {ValidationApiLobbyConfigs, ValidationApiLobbyDefaultConfigs} from "./validation.api.lobby";
 
 
-type validateApiSetConfigInput = {
-   sectionName: "USER",
-   configs: ValidationApiUserConfigs | ValidationApiUserDefaultConfigs,
-};
+interface SetConfigsInput<Name, Configs> {
+   name: Name,
+   configs: Configs
+}
+
+type validateApiSetConfigInput =
+   SetConfigsInput<"USER", ValidationApiUserConfigs | ValidationApiUserDefaultConfigs> |
+   SetConfigsInput<"LOBBY", ValidationApiLobbyConfigs | ValidationApiLobbyDefaultConfigs>;
 
 
 export default class ValidateApi {
    public static user: ValidationApiUser = new ValidationApiUser();
+   public static lobby: ValidationApiLobby = new ValidationApiLobby();
 
 
    public static SetConfigs(input: validateApiSetConfigInput) {
-      switch (input.sectionName) {
+      switch (input.name) {
          case "USER":
-            this.user.SetConfigs(input.configs);
+            return this.user.SetConfigs(input.configs);
+
+         case "LOBBY":
+            return this.lobby.SetConfigs(input.configs);
       }
    }
 

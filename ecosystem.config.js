@@ -1,24 +1,14 @@
 module.exports = {
    apps: [{
-      name: "games-manager",
-      script: "./server.js",
-      args: "--server-mode-games-manager",
+      name: "log",
+      script: "node src/services/logger/server.logger.js",
       instances: 1,
       autorestart: true,
       watch: false,
       max_memory_restart: "1G",
    }, {
-      name: "lobby-manager",
-      script: "./server.js",
-      args: "--server-mode-lobby-manager",
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: "1G",
-   }, {
-      name: "static-and-api",
-      script: "./server.js",
-      args: "--server-mode-static-and-api-serve",
+      name: "api",
+      script: "node src/servers/apiManager/server.manager.api.js",
       instances: 1,
       autorestart: true,
       watch: false,

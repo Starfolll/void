@@ -18,10 +18,11 @@ export default class Lobby extends WsCommunicator<any> {
    }
 
 
+   public ApplyClientListeners(): void {
 
+   }
 
-
-   private OnUserConnect() {
+   public ApplyListeners(): void {
 
    }
 }

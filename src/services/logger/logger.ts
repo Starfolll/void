@@ -4,16 +4,27 @@ import {logServerWSConnectionActions} from "./components/logServe";
 import WebSocket from "ws";
 import isReachable from "is-reachable";
 import Env from "../../../env/env";
+import util from "util";
 
 
-export default class LoggerServerApi {
+export default class Logger {
+   public static maxServerIdLength = 20;
+
+
    public static async IsServerAlive(): Promise<boolean> {
       return await isReachable(`http://localhost:8888`);
    }
 
+   public static async AwaitServer(): Promise<void> {
+      while (!(await Logger.IsServerAlive())) {
+         console.log("Waiting for server.logger to start");
+         await util.promisify(setTimeout)(5000);
+      }
+   }
+
    public static async SendLog(log: LogInput): Promise<void> {
       if (log.type !== LogType.ALL) {
-         await fetch(`http://localhost:${Env.logger.ports.loggerServerPort}/log/add`, {
+         await fetch(`http://localhost:${Env.services.logger.ports.loggerServerPort}/log/add`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({time: Date.now(), ...log} as LogInput),
@@ -23,7 +34,7 @@ export default class LoggerServerApi {
 
 
    public static async GetServerId(): Promise<string> {
-      const res = await fetch(`http://localhost:${Env.logger.ports.loggerServerPort}/stats/serverId`);
+      const res = await fetch(`http://localhost:${Env.services.logger.ports.loggerServerPort}/stats/serverId`);
       return await res.json();
    }
 

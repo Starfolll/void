@@ -1,19 +1,14 @@
 import express, {Express} from "express";
-import LoggerServerApi from "../../services/logger/loggerServerApi";
 import DbQueriesUser from "../../../db/queries/DbQueries.user";
 import ValidateApi from "./validation/validate.api";
 import {UserWhereUniqueInput} from "../../../generated/prisma-client";
-import {LogType} from "../../services/logger/components/log";
 import Manager from "../../utils/manager/manager";
-import Env from "../../../env/env";
 
 
 export enum ApiParams {
    email = "email",
-   password = "password",
    token = "token",
    userId = "userId",
-   anyHash = "anyHash"
 }
 
 
@@ -30,22 +25,13 @@ export default class ManagerApiParams extends Manager<ManagerApiParamsConfigs> {
       super(configs);
 
       this.app = express();
-      this.app.on("mount", async () => {
-         await LoggerServerApi.SendLog({
-            type: LogType.INFO,
-            serverId: Env.managers.apiManager.serverId,
-            data: `${Env.upAndRunningMessage} [manager api params]`
-         });
-      });
    }
 
 
    public async Boot() {
       await this.Email();
       await this.UserId();
-      await this.Password();
       await this.Token();
-      await this.AnyHash();
    }
 
    public async Setup(app: Express): Promise<void> {
@@ -78,15 +64,6 @@ export default class ManagerApiParams extends Manager<ManagerApiParamsConfigs> {
       });
    }
 
-   private async Password() {
-      this.app.param(ApiParams.password, async (req, res, next, value, name) => {
-         if (!!ValidateApi.user.ValidatePassword(value).error)
-            return next(this.GetValidationError(name));
-
-         next();
-      });
-   }
-
    private async Token() {
       this.app.param(ApiParams.token, async (req, res, next, value, name) => {
          if (!!ValidateApi.user.ValidateToken(value).error)
@@ -104,15 +81,6 @@ export default class ManagerApiParams extends Manager<ManagerApiParamsConfigs> {
 
          if (await this.IsUserExistsAndVerified({id: value})) next();
          else next(this.GetUserDoesNotExistsError());
-      });
-   }
-
-   private async AnyHash() {
-      this.app.param(ApiParams.anyHash, async (req, res, next, value, name) => {
-         if (!!ValidateApi.user.ValidateAnyHash(value).error)
-            return next(this.GetValidationError(name));
-
-         next();
       });
    }
 }

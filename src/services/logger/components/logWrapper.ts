@@ -1,5 +1,6 @@
 import {Log, LogData} from "./log";
 import chalk from "chalk";
+import Logger from "../logger";
 
 export default class LogWrapper {
    private static WrapLogStringToLogColor(log: Log): string {
@@ -27,7 +28,7 @@ export default class LogWrapper {
    }
 
    public static ToConsoleString(log: Log): string {
-      return `[${log.time.toUTCString()}] [${log.serverId}] [${LogWrapper.WrapLogStringToLogColor(log).padEnd(5)}] ${log.data}`;
+      return `[${log.time.toUTCString()}] [${log.serverId.padEnd(Logger.maxServerIdLength)}] [${LogWrapper.WrapLogStringToLogColor(log).padEnd(5)}] ${log.data}`;
    }
 
    public static ToJson(log: Log): LogData {
@@ -38,9 +39,5 @@ export default class LogWrapper {
          id: log.id,
          serverId: log.serverId
       };
-   }
-
-   public static ToHTML(log: Log): string {
-      return `<p>[${log.time.toUTCString()}] [${log.type}] ${log.data}</p>`;
    }
 }

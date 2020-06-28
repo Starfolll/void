@@ -1,7 +1,7 @@
 import express, {Express} from "express";
 import helmet from "helmet";
 import ManagerApiRoutes, {ManagerApiRoutesConfigs} from "./manager.api.routes";
-import LoggerServerApi from "../../services/logger/loggerServerApi";
+import Logger from "../../services/logger/logger";
 import ManagerApiParams, {ManagerApiParamsConfigs} from "./manager.api.params";
 import {LogType} from "../../services/logger/components/log";
 import Manager from "../../utils/manager/manager";
@@ -10,7 +10,7 @@ import Env from "../../../env/env";
 
 interface ManagerApiConfigs {
    port: number;
-   apiPath: string;
+   path: string;
    routes: ManagerApiRoutesConfigs;
    params: ManagerApiParamsConfigs;
 }
@@ -52,7 +52,7 @@ export default class ManagerApi extends Manager<ManagerApiConfigs> {
 
    private async UsePathLogger() {
       await this.app.use(async (req, res, next) => {
-         await LoggerServerApi.SendLog({
+         await Logger.SendLog({
             type: LogType.INFO,
             serverId: Env.managers.apiManager.serverId,
             data: `server request : [method: ${req.method}, id: ${req.ip}, url: ${req.url}]`
@@ -67,7 +67,7 @@ export default class ManagerApi extends Manager<ManagerApiConfigs> {
       await this.params.Setup(this.app);
       await this.routes.Setup(this.app);
 
-      this.app.listen(this.configs.port, () => LoggerServerApi.SendLog({
+      this.app.listen(this.configs.port, () => Logger.SendLog({
          type: LogType.INFO,
          serverId: Env.managers.apiManager.serverId,
          data: `${Env.upAndRunningMessage} [port: ${this.configs.port}]`

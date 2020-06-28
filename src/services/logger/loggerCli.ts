@@ -1,5 +1,5 @@
 import {Log, LogType} from "./components/log";
-import LoggerServerApi from "./loggerServerApi";
+import Logger from "./logger";
 import WebSocket from "ws";
 import LogWrapper from "./components/logWrapper";
 import {LogListData} from "./components/logList";
@@ -8,14 +8,14 @@ import chalk from "chalk";
 
 
 (async () => {
-   if (!await LoggerServerApi.IsServerAlive()) return console.error("LOG SERVER IS NOT ALIVE");
+   if (!await Logger.IsServerAlive()) return console.error("LOG SERVER IS NOT ALIVE");
    else {
       console.log(chalk.greenBright(` [ LOG SERVER IS ALIVE ] `));
-      console.log(` | Logger server id : ${await LoggerServerApi.GetServerId()}`);
-      console.log(` | To see more go to http://localhost:${Env.logger.ports.loggerServerPort}`);
+      console.log(` | Logger server id : ${await Logger.GetServerId()}`);
+      console.log(` | To see more go to http://localhost:${Env.services.logger.ports.loggerServerPort}`);
    }
 
-   const wsConnection = new WebSocket(Env.logger.wsServerUrl);
+   const wsConnection = new WebSocket(Env.services.logger.wsServerUrl);
    const upperCaseArgs = process.argv.map(e => e.toUpperCase());
 
    const logTypeArgs: Array<LogType> = upperCaseArgs.filter(upperCaseArg => Object.keys(LogType).some(lt => upperCaseArg === lt)) as Array<LogType>;
@@ -32,12 +32,17 @@ import chalk from "chalk";
 
    wsConnection.onmessage = (e: any) => {
       const data: LogListData = JSON.parse(e.data);
-      data.logs.forEach(l => console.log(LogWrapper.ToConsoleString(new Log(l))));
+      data.logs.forEach(l => {
+         if (Logger.maxServerIdLength < l.serverId.length)
+            Logger.maxServerIdLength = l.serverId.length;
+
+         console.log(LogWrapper.ToConsoleString(new Log(l)));
+      });
    }
 
    wsConnection.onclose = (e) => console.log(e);
    wsConnection.onopen = (e) => {
-      LoggerServerApi.WSGetLogsList(wsConnection, selectedLogsChanel);
-      LoggerServerApi.WSSubscribeToLogs(wsConnection, selectedLogsChanel);
+      Logger.WSGetLogsList(wsConnection, selectedLogsChanel);
+      Logger.WSSubscribeToLogs(wsConnection, selectedLogsChanel);
    }
 })();

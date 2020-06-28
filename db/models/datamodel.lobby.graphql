@@ -10,11 +10,17 @@ type RoomsInLobbyRelation @relationTable {
 
 type Lobby {
     id: ID! @id
-    name: String!
+    status: LobbyStatus!
 
     usersInLobby: [User!]! @relation(link: TABLE, name: "UsersInLobbyRelation")
     rooms: [Room!]! @relation(link: TABLE, name: "RoomsInLobbyRelation")
 
     createdAt: DateTime! @createdAt
-    updatedAt: DateTime! @updatedAt
+}
+
+
+enum LobbyStatus {
+   BOOTING
+   ONLINE
+   DISABLED
 }
